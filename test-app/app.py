@@ -11,9 +11,11 @@ app.config.from_pyfile('config.py')
 
 is_prod = os.environ.get('IS_HEROKU', None)
 
+#Checking if it is running locally or running on Heroku
 if is_prod:
     host = os.environ.get("VERIFONE_HOST")
     api_key = os.environ.get("API_KEY")
+#If running locally grab these config files using export APP_CONFIG_FILE=/Users/daan/Development/flask/test-app/config/sandbox.py
 else:
     # Load the file specified by the APP_CONFIG_FILE environment variable
     # Variables defined here will override those in the default configuration
@@ -52,7 +54,7 @@ def demo():
         print(trx_json)
         trx_link=ui_host + str(trx_json['_id'])
         return render_template('thankyou.html', api_host = api_host, card = card_json, transaction = trx_json, trx_link = trx_link)
-    return render_template('home.html')
+    return render_template('demo.html')
 
 
 @app.route('/get_card', methods=['POST', 'GET'])

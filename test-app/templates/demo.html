@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %} Demo {% endblock %}
+{% block content %}
+<section class="section">
+	<div class="container">
+		<h1 class="title is-1">
+			Hello
+		</h1>
+		<p class="subtitle">
+			My demo website with <strong>Bulma</strong>!
+		</p>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<div class="columns is-centered">
+			<div class="column is-1"></div>
+			<div class="column box">
+				<p class="title is-2">Basket</p>
+				<div class="columns">
+					<div class="column is-narrow">
+						<figure class="image is-128x128">
+							<img src="https://bulma.io/images/placeholders/128x128.png">
+						</figure>
+					</div>
+					<div class="column">
+						<p class="title is-4">Amazing product</p>
+						<p class="subtitle is-6">€9,99</p>
+					</div>
+				</div>
+				<div class="columns">
+					<div class="column is-narrow">
+						<figure class="image is-128x128">
+							<img src="https://bulma.io/images/placeholders/128x128.png">
+						</figure>
+					</div>
+					<div class="column">
+						<p class="title is-4">Amazing product</p>
+						<p class="subtitle is-6">€9,99</p>
+
+					</div>
+				</div>
+			</div>
+			<div class="column box is-narrow">
+				<h2 class="title is-2">
+					Payment
+				</h2>
+				<div class="control">
+					<form id="my_payment_form" method="POST" action="/demo">
+						<input type="hidden" name="my_order_id" value="12345" />
+						<script>
+							jsclient.injectForm(document.getElementById('my_payment_form'), {
+								"organisation_id": "5d2eeef0628e0432e2826bff",
+							});
+						</script>
+					</form>
+				</div>
+			</div>
+			<div class="column is-1"></div>
+
+		</div>
+</section>
+{% endblock %}
