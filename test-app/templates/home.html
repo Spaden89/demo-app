@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hello Bulma!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+	<link rel="stylesheet" href="form.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+	<script src="https://sandbox.omni.verifone.cloud/static/jsclient/script.js"></script>
+</head>
+
+<body>
+	<section>
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand">
+				<a class="navbar-item" href="https://bulma.io">
+					<img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+				</a>
+			</div>
+			<div id="navbarBasicExample" class="navbar-menu is-active">
+				<div class="navbar-start">
+					<a class="navbar-item">
+						Home
+					</a>
+					<a class="navbar-item">
+						Documentation
+					</a>
+					<div class="navbar-item has-dropdown is-hoverable">
+						<a class="navbar-link">
+							More
+						</a>
+						<div class="navbar-dropdown">
+							<a class="navbar-item">
+								About
+							</a>
+							<a class="navbar-item">
+								Jobs
+							</a>
+							<a class="navbar-item">
+								Contact
+							</a>
+							<hr class="navbar-divider">
+							<a class="navbar-item">
+								Report an issue
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="navbar-end">
+					<div class="navbar-item">
+						<div class="buttons">
+							<a class="button is-primary">
+								<strong>Sign up</strong>
+							</a>
+							<a class="button is-light">
+								Log in
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</section>
+	<section class="section">
+		<div class="container">
+			<h1 class="title is-1">
+				Hello
+			</h1>
+			<p class="subtitle">
+				My demo website with <strong>Bulma</strong>!
+			</p>
+		</div>
+	</section>
+	<section class="section">
+		<div class="container">
+			<div class="columns is-centered">
+				<div class="column is-1"></div>
+				<div class="column box">
+					<p class="title is-2">Basket</p>
+					<div class="columns">
+							<div class="column is-narrow">
+								<figure class="image is-128x128">
+									<img src="https://bulma.io/images/placeholders/128x128.png">
+								</figure>
+							</div>
+							<div class="column">
+								<p class="title is-4">Amazing product</p>
+								<p class="subtitle is-6">€9,99</p>
+							</div>
+					</div>
+					<div class="columns">
+							<div class="column is-narrow">
+								<figure class="image is-128x128">
+									<img src="https://bulma.io/images/placeholders/128x128.png">
+								</figure>
+							</div>
+							<div class="column">
+								<p class="title is-4">Amazing product</p>
+								<p class="subtitle is-6">€9,99</p>
+
+							</div>
+					</div>
+				</div>
+				<div class="column box is-narrow">
+					<h2 class="title is-2">
+						Payment
+					</h2>
+					<div class="control">
+						<form id="my_payment_form" method="POST" action="/demo">
+							<input type="hidden" name="my_order_id" value="12345" />
+							<script>
+								jsclient.injectForm(document.getElementById('my_payment_form'), {
+									"organisation_id": "5d2eeef0628e0432e2826bff",
+								});
+							</script>
+						</form>
+					</div>
+				</div>
+				<div class="column is-1"></div>
+
+			</div>
+	</section>
+</body>
+
+</html>
