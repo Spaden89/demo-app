@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, abort, request, render_template
 import requests
+import os
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -13,10 +14,17 @@ app.config.from_pyfile('config.py')
 # Variables defined here will override those in the default configuration
 app.config.from_envvar('APP_CONFIG_FILE')
 
-host = app.config["VERIFONE_HOST"]
+is_prod = os.environ.get('IS_HEROKU', None)
+
+if is_prod:
+    host = os.environ.get("VERIFONE_HOST")
+    api_key = os.environ.get("API_KEY")
+else:
+    host = app.config["VERIFONE_HOST"]
+    api_key = app.config["API_KEY"]
+
 ui_host = host + 'reports/transactions/'
 api_host = host + 'v1/'
-api_key = app.config["API_KEY"]
 
 @app.route('/demo', methods=['GET','POST'])
 def demo():
