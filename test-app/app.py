@@ -28,6 +28,7 @@ api_host = host + 'v1/'
 
 @app.route('/demo', methods=['GET','POST'])
 def demo():
+    print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
     if request.method == 'POST':
         card_id = request.form.get('card')
         print(card_id)
@@ -44,7 +45,7 @@ def demo():
             "amount": 1234,
             "card": card_id,
             "capture_now": True,
-            "customer_ip": "81.205.51.143",
+            "customer_ip": request.environ.get('HTTP_X_REAL_IP', request.remote_addr),
             "dynamic_descriptor": "Demonstration Test",
             "merchant_reference": "Test Demo",
             "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15",
