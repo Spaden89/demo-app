@@ -9,19 +9,8 @@ app.config.from_object('config.default')
 # Load the configuration from the instance folder
 app.config.from_pyfile('config.py')
 
-is_prod = os.environ.get('IS_HEROKU', None)
-
-#Checking if it is running locally or running on Heroku
-if is_prod:
-    host = os.environ.get("VERIFONE_HOST")
-    api_key = os.environ.get("API_KEY")
-#If running locally grab these config files using export APP_CONFIG_FILE=/Users/daan/Development/flask/test-app/config/sandbox.py
-else:
-    # Load the file specified by the APP_CONFIG_FILE environment variable
-    # Variables defined here will override those in the default configuration
-    app.config.from_envvar('APP_CONFIG_FILE')
-    host = app.config["VERIFONE_HOST"]
-    api_key = app.config["API_KEY"]
+host = os.environ.get("VERIFONE_HOST")
+api_key = os.environ.get("API_KEY")
 
 ui_host = host + 'reports/transactions/'
 api_host = host + 'v1/'

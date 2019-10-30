@@ -4,10 +4,16 @@
 <section class="section">
 	<div class="container">
 		<h1 class="title is-1">
-			Hello
+			Verifone Demonstration 
 		</h1>
 		<p class="subtitle">
-			My demo website with <strong>Bulma</strong>!
+			This page is intended to test the <a href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
+		</p>
+		<p class="subtitle">
+			Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This page tokenizes a card and creates a transaction. After the transaction has been created you will be forwarded to a 'Thank you' page including a link to the transaction in the portal.
+		</p>
+		<p class="subtitle">
+			After the transaction has been created you will be forwarded to a 'Thank you' page where you can find a link to the transaction in the portal.
 		</p>
 	</div>
 </section>
@@ -15,6 +21,29 @@
 	<div class="container">
 		<div class="columns is-centered">
 			<div class="column is-1"></div>
+
+			<div class="column box">
+				<h2 class="title is-2">
+					Payment Details
+				</h2>
+				<div class="content">
+					<p>Name</p>
+					<p>Email</p>
+					<p>Phone number</p>
+					<p>Address</p>
+					<p>Country</p>
+				</div>
+				<div class="control">
+					<form id="my_payment_form" method="POST" action="/demo">
+						<input type="hidden" name="my_order_id" value="12345" />
+						<script>
+							jsclient.injectForm(document.getElementById('my_payment_form'), {
+								"organisation_id": "5d2eeef0628e0432e2826bff",
+							});
+						</script>
+					</form>
+				</div>
+			</div>
 			<div class="column box">
 				<p class="title is-2">Basket</p>
 				<div class="columns">
@@ -39,21 +68,6 @@
 						<p class="subtitle is-6">€9,99</p>
 
 					</div>
-				</div>
-			</div>
-			<div class="column box is-narrow">
-				<h2 class="title is-2">
-					Payment
-				</h2>
-				<div class="control">
-					<form id="my_payment_form" method="POST" action="/demo">
-						<input type="hidden" name="my_order_id" value="12345" />
-						<script>
-							jsclient.injectForm(document.getElementById('my_payment_form'), {
-								"organisation_id": "5d2eeef0628e0432e2826bff",
-							});
-						</script>
-					</form>
 				</div>
 			</div>
 			<div class="column is-1"></div>
