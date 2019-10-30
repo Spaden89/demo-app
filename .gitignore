@@ -3,3 +3,4 @@ production.py
 __pychache__/
 .pyc
 .vscode/
+.env
