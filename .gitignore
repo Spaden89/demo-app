@@ -1,5 +1,5 @@
 sandbox.py
 production.py
-__pychache__
+__pychache__/
 .pyc
 .vscode/
