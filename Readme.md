@@ -1,6 +1,6 @@
 Done
 - ~Display transaction data above payment form~
-- ~Get card token
+- ~Get card token~
 - ~Create Transaction with card after tokenisation~
 - ~Redirect to a new page thanking for the order~
 - ~Thank you for your order! You made a purchase with card 123456xxxx1234~
