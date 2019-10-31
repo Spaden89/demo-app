@@ -24,15 +24,44 @@
 
 			<div class="column box">
 				<h2 class="title is-2">
-					Payment Details
+					Contact Details
 				</h2>
 				<div class="content">
-					<p>Name</p>
-					<p>Email</p>
-					<p>Phone number</p>
-					<p>Address</p>
-					<p>Country</p>
+					<div class="field">
+						<label class="label has-text-left">Name</label>
+						<div class="control">
+						  <input class="input" type="text" placeholder="e.g Anders Anderson">
+						</div>
+					  </div>
+					  
+					  <div class="field">
+						<label class="label has-text-left">Email</label>
+						<div class="control">
+						  <input class="input" type="email" placeholder="e.g. anders@anderson.com">
+						</div>
+					  </div>
+					  <div class="field">
+						<label class="label has-text-left">Telephone</label>
+						<div class="control">
+						  <input class="input" type="tel" placeholder="+3123456789">
+						</div>
+					  </div>
+					  <div class="field">
+						<label class="label has-text-left">Address</label>
+						<div class="control">
+						  <input class="input" type="text" placeholder="Road 1">
+						</div>
+					  </div>
+					  <div class="field">
+						<label class="label has-text-left">Country</label>
+						<div class="control">
+						  <input class="input" type="text" placeholder="Netherlands">
+						</div>
+					  </div>
 				</div>
+				<h2 class="title is-2">
+					Payment Details
+				</h2>
 				<div class="control">
 					<form id="my_payment_form" method="POST" action="/demo">
 						<input type="hidden" name="my_order_id" value="12345" />
