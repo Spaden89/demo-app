@@ -10,7 +10,7 @@ pylint = "*"
 flask = "*"
 gunicorn = "*"
 requests = "*"
-os = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
