@@ -7,7 +7,21 @@
 			<div class="column box">
 				<p class="title is-2">Thank you for your order.</p>
 				<p>You used a card ending with {{ card.last_four }}</p>
-				<p>And your payment is ID <a href="{{ trx_link }}"> {{ transaction._id }} </a></p>
+				<p>And your payment is ID <a href="{{ trx_link }}" target="_blank"> {{ transaction._id }} </a></p>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column">
+				<p class="title is-4">Card</p>
+				<p> {{ card }} </p>
+			</div>
+			<div class="column">
+				<p class="title is-4">Transaction</p>
+				<p> {{ transaction }} </p>
+			</div>
+			<div class="column">
+				<p class="title is-4">Customer</p>
+				<p> {{ customer }} </p>
 			</div>
 		</div>
 	</div>

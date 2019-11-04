@@ -13,10 +13,11 @@ Done
 - ~Integrate templates into HTML pages~
 
 To do
-- Display and hardcode customer details
-- On thank you page display all JSON body’s
+
+- ~Display and hardcode customer details~
+- ~On thank you page display all JSON body’s~
 - Refactor folder structure
-- Make mapping for Inject to Bulma classes
-- Write JS to apply bulma classes
 - Discard Bootstrap
+- Make mapping for Inject to Bulma classes
+- Write JS to apply bulma classes to form
 - Include option to use an already stored card
