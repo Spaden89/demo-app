@@ -3,26 +3,29 @@
 {% block content %}
 <section class="section">
 	<div class="container">
-		<h1 class="title is-1">
-			Demonstration 
-		</h1>
-		<p class="subtitle">
-			This page is intended to test the <a href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
-		</p>
-		<p class="subtitle">
-			Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This page tokenizes a card and creates a transaction. After the transaction has been created you will be forwarded to a 'Thank you' page including a link to the transaction in the portal.
-		</p>
-		<p class="subtitle">
-			After the transaction has been created you will be forwarded to a 'Thank you' page where you can find a link to the transaction in the portal.
-		</p>
+		<div class="columns is-centered">
+			<div class="column is-two-thirds">
+				<h1 class="title is-1">
+					Demonstration 
+				</h1>
+				<p class="subtitle">
+					This page is intended to test the <a href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
+				</p>
+				<p class="subtitle">
+					Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This page tokenizes a card and creates a transaction. After the transaction has been created you will be forwarded to a 'Thank you' page including a link to the transaction in the portal.
+				</p>
+				<p class="subtitle">
+					After the transaction has been created you will be forwarded to a 'Thank you' page where you can find a link to the transaction in the portal.
+				</p>
+			</div>
+		</div>
 	</div>
 </section>
 <section class="section">
 	<div class="container">
 		<div class="columns is-centered">
-			<div class="column is-1"></div>
-			<div class="column box">
-				<h2 class="title is-2">
+			<div class="column box is-one-third">
+				<h2 class="title is-4">
 					Contact Details
 				</h2>
 				<div class="content">
@@ -57,7 +60,7 @@
 						</div>
 					  </div>
 				</div>
-				<h2 class="title is-2">
+				<h2 class="title is-4">
 					Payment Details
 				</h2>
 				<div class="control">
@@ -71,8 +74,8 @@
 					</form>
 				</div>
 			</div>
-			<div class="column box">
-				<p class="title is-2">Basket</p>
+			<div class="column box is-one-quarter">
+				<p class="title is-4">Basket</p>
 				<div class="columns">
 					<div class="column is-narrow">
 						<figure class="image is-128x128">
@@ -80,7 +83,7 @@
 						</figure>
 					</div>
 					<div class="column">
-						<p class="title is-4">Amazing product</p>
+						<p class="title is-5">Amazing product</p>
 						<p class="subtitle is-6">€9,99</p>
 					</div>
 				</div>
@@ -91,12 +94,11 @@
 						</figure>
 					</div>
 					<div class="column">
-						<p class="title is-4">Amazing product</p>
+						<p class="title is-5">Amazing product</p>
 						<p class="subtitle is-6">€9,99</p>
 					</div>
 				</div>
 			</div>
-			<div class="column is-1"></div>
 		</div>
 </section>
 {% endblock %}
