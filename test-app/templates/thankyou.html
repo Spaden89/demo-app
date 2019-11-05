@@ -12,16 +12,26 @@
 		</div>
 		<div class="columns">
 			<div class="column">
-				<p class="title is-4">Card</p>
-				<p> {{ card }} </p>
+				<p class="title is-4">Get Card</p>
+				<div class="table-container">
+								{{ card_table | safe }}
+				</div>
 			</div>
+		</div>
+		<div class="columns">
 			<div class="column">
-				<p class="title is-4">Transaction</p>
-				<p> {{ transaction }} </p>
+				<p class="title is-4">Create Customer</p>
+				<div class="table-container">
+								{{ customer_table | safe  }}
+				</div>
 			</div>
+		</div>
+		<div class="columns">
 			<div class="column">
-				<p class="title is-4">Customer</p>
-				<p> {{ customer }} </p>
+				<p class="title is-4">Create Transaction Response</p>
+				<div class="table-container">
+				{{ transaction_table | safe  }}
+				</div>
 			</div>
 		</div>
 	</div>

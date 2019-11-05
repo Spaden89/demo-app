@@ -2,6 +2,7 @@ from flask import Flask, jsonify, abort, request, render_template
 import requests
 import os
 import json
+from json2html import *
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -30,6 +31,7 @@ def demo():
         print(host)
         card_req = requests.get(api_host + 'card/' + card_id, headers=headers)
         card_json = card_req.json()
+        card_table = json2html.convert(json = card_json, table_attributes="class=\"table is-striped\"")
         print(card_json)
         # Create customer
         customer_body = {
@@ -46,6 +48,7 @@ def demo():
         }
         customer_req = requests.post(api_host + 'customer/', headers = headers, json = customer_body)
         customer_json = customer_req.json()
+        customer_table = json2html.convert(json = customer_json, table_attributes="class=\"table is-striped\"")
         print(customer_json)
         # Create transaction
         transaction_body = {
@@ -60,10 +63,11 @@ def demo():
             "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15",
         }
         trx_req = requests.post(api_host + 'transaction', headers = headers, json = transaction_body)
-        trx_json=trx_req.json()
+        trx_json = trx_req.json()
+        trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
         print(trx_json)
-        trx_link=ui_host + str(trx_json['_id'])
-        return render_template('thankyou.html', api_host = api_host, card = card_json, transaction = trx_json, transaction_body = transaction_body, customer = customer_json, trx_link = trx_link)
+        trx_link = ui_host + str(trx_json['_id'])
+        return render_template('thankyou.html', api_host = api_host, card_table = card_table, card = card_json, transaction_table = trx_table, transaction = trx_json, customer_table = customer_table, customer = customer_json, trx_link = trx_link)
     return render_template('demo.html')
 
 
