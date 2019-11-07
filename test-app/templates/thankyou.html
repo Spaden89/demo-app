@@ -6,31 +6,15 @@
 		<div class="columns">
 			<div class="column box">
 				<p class="title is-2">Thank you for your order.</p>
-				<p>You used a card ending with {{ card.last_four }}</p>
+				<p>You used a card ending with {{ transaction.card.last_four }}</p>
 				<p>And your payment is ID <a href="{{ trx_link }}" target="_blank"> {{ transaction._id }} </a></p>
 			</div>
 		</div>
 		<div class="columns">
 			<div class="column">
-				<p class="title is-4">Get Card Response</p>
+				<p class="title is-4">Transaction Body</p>
 				<div class="table-container">
-								{{ card_table | safe }}
-				</div>
-			</div>
-		</div>
-		<div class="columns">
-			<div class="column">
-				<p class="title is-4">Create Customer Request</p>
-				<div class="table-container">
-								{{ customer_table | safe  }}
-				</div>
-			</div>
-		</div>
-		<div class="columns">
-			<div class="column">
-				<p class="title is-4">Create Transaction Request</p>
-				<div class="table-container">
-				{{ transaction_table | safe  }}
+				{{ trx_table | safe  }}
 				</div>
 			</div>
 		</div>

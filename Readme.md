@@ -13,10 +13,9 @@ Done
 - ~Integrate templates into HTML pages~
 - ~Display and hardcode customer details~
 - ~On thank you page display all JSON body’s~
+- ~Refactor folder and route structure~
 
 To do
-
-- Refactor folder and route structure
 - Discard Bootstrap
 - Make mapping for Inject to Bulma classes
 - Write JS to apply bulma classes to form

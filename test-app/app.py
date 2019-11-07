@@ -1,10 +1,12 @@
-from flask import Flask, jsonify, abort, request, render_template
+from flask import Flask, jsonify, abort, request, render_template, session
 import requests
 import os
 import json
 from json2html import *
 
 app = Flask(__name__, instance_relative_config=True)
+# Set secret key for sessions
+app.secret_key = os.environ.get("SECRET_KEY")
 
 #Loading default configuration
 app.config.from_object('config.default')
@@ -34,17 +36,25 @@ def demo():
     # Get and print client User-Agent
     client_user_agent = request.headers.get('User-Agent')
     print(f"Client User-Agent is: {client_user_agent}")
-    # The token form is submitted and posted back to this page, when that happens, this if-statement catches it.
-    if request.method == 'POST':
-        # Print the card id from the form submission
-        card_id = request.form.get('card')
-        print(f"The card token is: {card_id}")
-        # GET and print the card details and store them as a json file
-        card_req = requests.get(api_host + 'card/' + card_id, headers=headers)
-        card_json = card_req.json()
-        print(card_json)
-        # Convert the json object to an html table
-        card_table = json2html.convert(json = card_json, table_attributes="class=\"table is-striped\"")
+    return render_template('demo.html')
+
+@app.route('/thankyou', methods=['POST', 'GET'])
+def get_transaction():
+    # Get and print client ip address
+    client_ip_address = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    print(f"Client IP address: {client_ip_address}")
+    # Get and print client User-Agent
+    client_user_agent = request.headers.get('User-Agent')
+    print(f"Client User-Agent is: {client_user_agent}")
+    # store the card token in the card variable
+    card = request.form.get('card')
+    # set up the params variable for getting the trx 
+    params = {
+        '_populate':'card+customer'
+    }
+    print(f"The session carried over this token: {card}")
+    # The form posts to this end point
+    if card and request.method == 'POST':
         # Create customer json body
         customer_body = {
             "organisation":"5d2eeef0628e0432e2826bff",
@@ -62,13 +72,11 @@ def demo():
         customer_req = requests.post(api_host + 'customer/', headers = headers, json = customer_body)
         customer_json = customer_req.json()
         print(customer_json)
-        # Convert the json object to an html table
-        customer_table = json2html.convert(json = customer_json, table_attributes="class=\"table is-striped\"")
         # Create transaction json body
         transaction_body = {
             "account": "5d2efcf2628e0432e2826c6a",
             "amount": 1234,
-            "card": card_id,
+            "card": card,
             "capture_now": True,
             "customer_ip": client_ip_address,
             "customer": customer_json['_id'],
@@ -77,24 +85,37 @@ def demo():
             "user_agent": client_user_agent,
         }
         # POST transaction request and capture the response as a json object
-        trx_req = requests.post(api_host + 'transaction', headers = headers, json = transaction_body)
-        trx_json = trx_req.json()
+        trx_req_post = requests.post(api_host + 'transaction', headers = headers, json = transaction_body)
+        trx_json_post = trx_req_post.json()
+        trx_id = trx_json_post['_id']
+        # GET transaction, card, customer details
+        trx_req_get = requests.get(api_host + 'transaction/' + trx_id, params = params, headers = headers)
+        trx_json = trx_req_get.json()
         print(trx_json)
-        # Convert the json object to an html table
-        trx_table = json2html.convert(json = transaction_body, table_attributes="class=\"table is-striped\"")
-        # Generate the link to the transaction in the UI
+        trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
         trx_link = ui_host + str(trx_json['_id'])
-        # Render the thankyou template with the card table + json, transaction table + json, customer table + json
-        return render_template('thankyou.html', card_table = card_table, card = card_json, transaction_table = trx_table, transaction = trx_json, customer_table = customer_table, customer = customer_json, trx_link = trx_link)
-    return render_template('demo.html')
+        return render_template('thankyou.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
-@app.route('/thankyou/<transaction>', methods=['POST', 'GET'])
-def get_transaction(transaction):
+@app.route('/thankyou/<transaction>', methods=['GET'])
+def get_transaction_id(transaction):
+    trx_id = transaction
+    # Get and print client ip address
     client_ip_address = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
-    print(client_ip_address)
-    # get transaction and populate the card and customer and display
+    print(f"Client IP address: {client_ip_address}")
+    # Get and print client User-Agent
+    client_user_agent = request.headers.get('User-Agent')
+    print(f"Client User-Agent is: {client_user_agent}")
+    params = {
+        '_populate':'card+customer'
+    }
+    # GET transaction, card, customer details
+    trx_req_get = requests.get(api_host + 'transaction/' + trx_id, params = params, headers = headers)
+    trx_json = trx_req_get.json()
+    print(trx_json)
+    trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
+    trx_link = ui_host + str(trx_json['_id'])
+    return render_template('thankyou.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
-    # render thankyou.html and display the card, transcation and customer information
 
 if __name__ == '__main__':
     app.run()
