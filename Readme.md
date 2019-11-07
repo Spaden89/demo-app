@@ -20,3 +20,4 @@ To do
 - Make mapping for Inject to Bulma classes
 - Write JS to apply bulma classes to form
 - Include option to use an already stored card
+- Refactor for DRY
