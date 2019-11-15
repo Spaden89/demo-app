@@ -19,5 +19,7 @@ Done
 - ~Write JS to apply bulma classes to form~
 
 To do
+- customer creation page
+- error handling for visiting thankyou without an ID
 - Include option to use an already stored card
 - Refactor for DRY
