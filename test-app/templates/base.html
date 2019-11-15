@@ -8,8 +8,9 @@
     <link rel= "stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://sandbox.omni.verifone.cloud/static/jsclient/script.js"></script>
+    <script src="{{ url_for('static', filename='bulma-form.js')}}"></script>
 </head>
-<body>
+<body onload = 'bulmaForm()'>
     <section>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div id="navbarBasicExample" class="navbar-menu is-active">

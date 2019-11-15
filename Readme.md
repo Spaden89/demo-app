@@ -14,10 +14,10 @@ Done
 - ~Display and hardcode customer details~
 - ~On thank you page display all JSON body’s~
 - ~Refactor folder and route structure~
+- ~Discard Bootstrap~
+- ~Make mapping for Inject to Bulma classes~
+- ~Write JS to apply bulma classes to form~
 
 To do
-- Discard Bootstrap
-- Make mapping for Inject to Bulma classes
-- Write JS to apply bulma classes to form
 - Include option to use an already stored card
 - Refactor for DRY
