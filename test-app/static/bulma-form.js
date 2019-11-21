@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     var submitbutton = document.getElementById("_submit_button");
     submitbutton.classList.add("button", "is-info");
+    var att = document.createAttribute("onclick");
+    att.value = "submitCustomerForm()";
+    submitbutton.setAttributeNode(att);
 }); 
-
-// function for submitting customer detail form and 

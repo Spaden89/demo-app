@@ -38,6 +38,43 @@ def demo():
     print(f"Client User-Agent is: {client_user_agent}")
     return render_template('demo.html')
 
+@app.route('/newcustomer', methods=['GET','POST'])
+def newcustomer():
+    # Get and print client ip address
+    client_ip_address = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    print(f"Client IP address: {client_ip_address}")
+    # Get and print client User-Agent
+    client_user_agent = request.headers.get('User-Agent')
+    print(f"Client User-Agent is: {client_user_agent}")
+    if request.method == 'POST':
+        print("Customer form has been filled:" + str(request.form.to_dict(flat=False)))
+        customer_name = request.form['name'].split(" ", 1)
+        customer_email = request.form['email']
+        customer_address = request.form['address']
+        customer_city = request.form['city']
+        customer_country = request.form['country']
+        customer_body = {
+            "organisation":"5d2eeef0628e0432e2826bff",
+            "email_address": customer_email,
+            "billing":{
+                "first_name": customer_name[0],
+                "last_name": customer_name[1],
+                "address_1": customer_address,
+                "city": customer_city,
+                "country_code": customer_country,
+                "postal_code": "WA4 5GX"
+            }
+        }
+        # POST the customer details and capture the response as a json object
+        customer_req = requests.post(api_host + 'customer/', headers = headers, json = customer_body)
+        customer_json = customer_req.json()
+        print(customer_json)
+        customer_id = customer_json['_id']
+        customer_table = json2html.convert(json = customer_json, table_attributes="class=\"table is-striped\"")
+        return render_template('existingcustomer.html', customer = customer_table)
+    return render_template('newcustomer.html')
+
+
 @app.route('/thankyou', methods=['POST', 'GET'])
 def get_transaction():
     # Get and print client ip address

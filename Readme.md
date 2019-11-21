@@ -17,9 +17,12 @@ Done
 - ~Discard Bootstrap~
 - ~Make mapping for Inject to Bulma classes~
 - ~Write JS to apply bulma classes to form~
+- ~customer creation page~
 
 To do
-- customer creation page
+- Add logic to handle customer created and subsequent initiating of a card trx with said customer
+- request test account
 - error handling for visiting thankyou without an ID
 - Include option to use an already stored card
 - Refactor for DRY
+- Create a customer class
