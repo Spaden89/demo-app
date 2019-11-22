@@ -20,7 +20,21 @@ Done
 - ~customer creation page~
 
 To do
-- Add logic to handle customer created and subsequent initiating of a card trx with said customer
+- Refactor logic to handle customer created and subsequent initiating of a card trx with said customer
+    - Create dimebox library
+        - ~createTransaction~
+        - ~getTransaction~
+        - ~createCustomer~
+        - getCustomer        
+    - /createTransaction endpoint for submitting transactions
+    - /createCustomer endpoint for creating customers
+    - /newcustomer 
+        - IF GET 
+            - display prefilled customer details and give option to edit details
+            - on form submit POST to /createCustomer endpoint and pass customer ID to newCustomer endpoint
+        - IF POST
+            - display customer details
+            - enter card details and POST to /createTransaction with card ID
 - request test account
 - error handling for visiting thankyou without an ID
 - Include option to use an already stored card
