@@ -18,25 +18,19 @@ Done
 - ~Make mapping for Inject to Bulma classes~
 - ~Write JS to apply bulma classes to form~
 - ~customer creation page~
-
-To do
 - Refactor logic to handle customer created and subsequent initiating of a card trx with said customer
-    - Create dimebox library
+    - ~Create dimebox library~
         - ~createTransaction~
         - ~getTransaction~
         - ~createCustomer~
-        - getCustomer        
-    - /createTransaction endpoint for submitting transactions
-    - /createCustomer endpoint for creating customers
-    - /newcustomer 
-        - IF GET 
-            - display prefilled customer details and give option to edit details
-            - on form submit POST to /createCustomer endpoint and pass customer ID to newCustomer endpoint
-        - IF POST
-            - display customer details
-            - enter card details and POST to /createTransaction with card ID
+        - ~getCustomer~        
+    - ~/createTransaction endpoint for submitting transactions~
+    - ~/newcustomer~ 
+- ~Refactor for DRY~
+
+
+To do
 - request test account
 - error handling for visiting thankyou without an ID
 - Include option to use an already stored card
-- Refactor for DRY
 - Create a customer class

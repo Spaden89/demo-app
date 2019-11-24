@@ -33,7 +33,7 @@
                     <h2 class="title is-4">
                         Shipping & Billing Details
                     </h2>
-                    <form id="customer_details" method="POST" action="/newcustomer">
+                    <form id="customer_details" method="POST" action="/demo/newcustomer">
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Name</label>
@@ -367,22 +367,7 @@
                         <input class="button is-info" type="submit" id="_submit_customer">
                     </form>
                 </div>
-                <div class="section">
-                    <h2 class="title is-4">
-                        Payment Details
-                    </h2>
-                    <div class="control">
-                        <form id="my_payment_form" method="POST" action="/thankyou">
-                            <input type="hidden" name="my_order_id" value="12345" />
-                            <script>
-                                jsclient.injectForm(document.getElementById('my_payment_form'), {
-                                    "organisation_id": "5d2eeef0628e0432e2826bff",
-                                    "no_style": true,
-                                });
-                            </script>
-                        </form>
-                    </div>
-                </div>
+                
             </div>
             <!-- <div class="column box is-one-quarter">
 				<p class="title is-4">Basket</p>

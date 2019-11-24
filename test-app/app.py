@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort, request, render_template, session
+from flask import Flask, jsonify, abort, request, render_template, session, redirect, url_for
 import requests
 import os
 import json
@@ -16,6 +16,8 @@ app.config.from_pyfile('config.py')
 
 host = os.environ.get("VERIFONE_HOST")
 api_key = os.environ.get("API_KEY")
+organisation = os.environ.get("ORGANISATION")
+customer = os.environ.get("CUSTOMER")
 
 ui_host = host + 'reports/transactions/'
 api_host = host + 'v1/'
@@ -38,13 +40,31 @@ def websiteVisit():
     print(f"Client User-Agent is: {client_user_agent}")
     return client_ip_address, client_user_agent
 
-
-@app.route('/demo', methods=['GET','POST'])
-def demo():
-    websiteVisit()
+@app.route('/transaction', methods=['GET','POST'])
+def transaction():
+    if request.method == 'POST':
+        # create transaction and return json and transaction ID
+        card = request.form.get('card')
+        customer = session.get('customer')
+        client_ip_address = session.get('client_ip_address')
+        client_user_agent = session.get('client_user_agent')
+        trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
+        trx_id = trx_json['_id']
+        return redirect(url_for('thankyou') + '/' + trx_id)
     return render_template('demo.html')
 
-@app.route('/newcustomer', methods=['GET','POST'])
+@app.route('/demo/default', methods=['GET','POST'])
+def demo_default():
+    (client_ip_address, client_user_agent) = websiteVisit()
+    if request.method == 'POST':
+        # store the card token in the card variable
+        card = request.form.get('card')
+        trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
+        trx_id = trx_json['_id']
+        return redirect(url_for('thankyou') + '/' + trx_id)
+    return render_template('demo.html')
+
+@app.route('/demo/newcustomer', methods=['GET','POST'])
 def newcustomer():
     (client_ip_address, client_user_agent) = websiteVisit()
     if request.method == 'POST':
@@ -54,49 +74,19 @@ def newcustomer():
         address = request.form['address']
         city = request.form['city']
         country = request.form['country']
-        (customer_id, customer_json) = dimebox.createCustomer(email, first, last, address, city, country)
+        customer_json = dimebox.createCustomer(email, first, last, address, city, country)
+        session['customer'] = customer_json['_id']
+        session['client_ip_address'] = client_ip_address
+        session['client_user_agent'] = client_user_agent
+        session_customer = session.get('customer')
+        session_client_ip = session.get('client_ip_address')
+        session_client_user = session.get('client_user_agent')
+        print(f'Customer stored in session: {session_customer}')
+        print(f'client ip stored in session: {session_client_ip}')
+        print(f'client user agent stored in session: {session_client_user}')
         customer_table = json2html.convert(json = customer_json, table_attributes="class=\"table is-striped\"")
         return render_template('existingcustomer.html', customer = customer_table)
     return render_template('newcustomer.html')
-
-
-@app.route('/thankyou', methods=['POST', 'GET'])
-def get_transaction():
-    (client_ip_address, client_user_agent) = websiteVisit()
-    # store the card token in the card variable
-    card = request.form.get('card')
-    # set up the params variable for getting the trx 
-    params = {
-        '_populate':'card+customer'
-    }
-    print(f"The session carried over this token: {card}")
-    # The form posts to this end point
-    if card and request.method == 'POST':
-        # Create customer json body
-        customer_body = {
-            "organisation":"5d2eeef0628e0432e2826bff",
-            "email_address": "john.gilmore@email.com",
-            "billing":{
-                "first_name": "John",
-                "last_name": "Gilmore",
-                "address_1": "46 Shore Street",
-                "city": "Heath Stockton",
-                "country_code": "GB",
-                "postal_code": "WA4 5GX"
-            }
-        }
-        # POST the customer details and capture the response as a json object
-        customer_req = requests.post(api_host + 'customer/', headers = headers, json = customer_body)
-        customer_json = customer_req.json()
-        print(customer_json)
-        #create transaction
-        trx_id = dimebox.createTransaction(card, customer_json['_id'], client_ip_address, client_user_agent)
-        #get transaction body with card and customer populated
-        trx_json = dimebox.getTransaction(trx_id, params)
-        print(trx_json)
-        trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
-        trx_link = ui_host + str(trx_json['_id'])
-        return render_template('thankyou.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
 @app.route('/thankyou/<transaction>', methods=['GET'])
 def get_transaction_id(transaction):
@@ -107,8 +97,7 @@ def get_transaction_id(transaction):
         '_populate':'card+customer'
     }
     # GET transaction, card, customer details
-    trx_req_get = requests.get(api_host + 'transaction/' + trx_id, params = params, headers = headers)
-    trx_json = trx_req_get.json()
+    trx_json = dimebox.getTransaction(trx_id, params)
     print(trx_json)
     trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
     trx_link = ui_host + str(trx_json['_id'])
