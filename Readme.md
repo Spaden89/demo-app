@@ -30,7 +30,8 @@ Done
 
 
 To do
-- request test account
-- error handling for visiting thankyou without an ID
 - Include option to use an already stored card
+- Create UI components for displaying transaction, customer and card details
+- Error page
 - Create a customer class
+- request test account

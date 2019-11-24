@@ -50,7 +50,7 @@ def transaction():
         client_user_agent = session.get('client_user_agent')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thankyou') + '/' + trx_id)
+        return redirect(url_for('get_transaction_id', transaction = trx_id))
     return render_template('demo.html')
 
 @app.route('/demo/default', methods=['GET','POST'])
@@ -61,8 +61,14 @@ def demo_default():
         card = request.form.get('card')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thankyou') + '/' + trx_id)
-    return render_template('demo.html')
+        return redirect(url_for('get_transaction_id', transaction = trx_id))
+    customer_json = dimebox.getCustomer(customer)
+    card_list = []
+    for card in customer_json['cards']:
+        card_json = dimebox.getCard(card)
+        card_list.append(card_json)
+    print(card_list)
+    return render_template('demo.html', card_list = card_list)
 
 @app.route('/demo/newcustomer', methods=['GET','POST'])
 def newcustomer():
