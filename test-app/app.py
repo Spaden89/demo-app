@@ -50,7 +50,7 @@ def transaction():
         client_user_agent = session.get('client_user_agent')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thankyou') + '/' + trx_id)
+        return redirect(url_for('get_transaction_id',transaction=trx_id))
     return render_template('demo.html')
 
 @app.route('/demo/default', methods=['GET','POST'])
@@ -61,7 +61,7 @@ def demo_default():
         card = request.form.get('card')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thankyou') + '/' + trx_id)
+        return redirect(url_for('get_transaction_id',transaction=trx_id))
     return render_template('demo.html')
 
 @app.route('/demo/newcustomer', methods=['GET','POST'])
@@ -88,7 +88,7 @@ def newcustomer():
         return render_template('existingcustomer.html', customer = customer_table)
     return render_template('newcustomer.html')
 
-@app.route('/thankyou/<transaction>', methods=['GET'])
+@app.route('/thankyou_detailed/<transaction>', methods=['GET'])
 def get_transaction_id(transaction):
     trx_id = transaction
     (client_ip_address, client_user_agent) = websiteVisit()
@@ -96,12 +96,12 @@ def get_transaction_id(transaction):
     params = {
         '_populate':'card+customer'
     }
-    # GET transaction, card, customer details
+    # GET transaction
     trx_json = dimebox.getTransaction(trx_id, params)
     print(trx_json)
     trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
     trx_link = ui_host + str(trx_json['_id'])
-    return render_template('thankyou.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
+    return render_template('thankyou_detailed.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
 
 if __name__ == '__main__':

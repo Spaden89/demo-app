@@ -30,7 +30,7 @@ Done
 
 
 To do
-- request test account
+- refactor design
+- include option to use an already stored card
+- add checkout functionality
 - error handling for visiting thankyou without an ID
-- Include option to use an already stored card
-- Create a customer class
