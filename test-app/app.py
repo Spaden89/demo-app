@@ -50,7 +50,7 @@ def transaction():
         client_user_agent = session.get('client_user_agent')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thankyou',transaction=trx_id))
+        return redirect(url_for('thank_you',transaction=trx_id))
     return render_template('demo.html')
 
 @app.route('/demo/default', methods=['GET','POST'])
@@ -73,8 +73,9 @@ def newcustomer():
         email = request.form['email']
         address = request.form['address']
         city = request.form['city']
+        postal_code = request.form['postal']
         country = request.form['country']
-        customer_json = dimebox.createCustomer(email, first, last, address, city, country)
+        customer_json = dimebox.createCustomer(email, first, last, address, city, postal_code, country)
         session['customer'] = customer_json['_id']
         session['client_ip_address'] = client_ip_address
         session['client_user_agent'] = client_user_agent
@@ -84,8 +85,8 @@ def newcustomer():
         print(f'Customer stored in session: {session_customer}')
         print(f'client ip stored in session: {session_client_ip}')
         print(f'client user agent stored in session: {session_client_user}')
-        customer_table = json2html.convert(json = customer_json, table_attributes="class=\"table is-striped\"")
-        return render_template('existingcustomer.html', customer = customer_table)
+        customer = customer_json
+        return render_template('existingcustomer.html', customer = customer)
     return render_template('newcustomer.html')
 
 @app.route('/thankyou/<transaction>', methods=['GET'])
