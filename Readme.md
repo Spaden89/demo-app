@@ -31,6 +31,7 @@ Done
 
 To do
 - Include option to use an already stored card
+- refactor design
 - Create UI components for displaying transaction, customer and card details
 - Error page
 - Create a customer class

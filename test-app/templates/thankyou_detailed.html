@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Thank you {% endblock %}
+{% block content %}
+<section class="section">
+	<div class="container">
+		<div class="columns">
+			<div class="column box">
+				<p class="title is-2">Thank you for your order.</p>
+				<p>You used a card ending with {{ transaction.card.last_four }}</p>
+				<p>And your payment is ID <a href="{{ trx_link }}" target="_blank"> {{ transaction._id }} </a></p>
+			</div>
+		</div>
+		<div class="columns">
+			<div class="column">
+				<p class="title is-4">Transaction Body</p>
+				<div class="table-container">
+				{{ trx_table | safe  }}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

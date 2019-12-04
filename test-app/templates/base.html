@@ -11,24 +11,25 @@
     <script src="{{ url_for('static', filename='bulma-form.js')}}"></script>
 </head>
 <body>
-    <section>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div id="navbarBasicExample" class="navbar-menu is-active">
-                <div class="navbar-start">
-                    <a class="navbar-item" href="/demo/default">
-                        Home
-                    </a>
-                    <a class="navbar-item" href="/demo/default">
-                        Demonstration
-                    </a>
-                    <a class="navbar-item" href="/demo/newcustomer">
-                        New customer
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </section>
-    {% block content %}
-    {% endblock %}
+<div class="columns">
+    <div class="column is-2">
+        <div class="section">
+            <aside class="menu">
+                <p class="menu-label">
+                    Menu
+                </p>
+                <ul class="menu-list">
+                    <li><a href="/demo/default" >Home</a></li>
+                    <li><a href="/demo/default" >Demonstration</a></li>
+                    <li><a href="/demo/newcustomer" >New customer</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <div class="column is-10">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
 </body>
 </html>
