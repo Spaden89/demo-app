@@ -30,27 +30,33 @@
         <div class="columns is-centered">
             <div class="column box is-two-thirds">
                 <div class="section">
-                    <h2 class="title is-4">
-                        Shipping & Billing Details
-                    </h2>
-                    <div class="table-container">
-				    {{ customer | safe  }}
-				</div>
-                </div>
-                <div class="section">
-                    <h2 class="title is-4">
-                        Payment Details
-                    </h2>
-                    <div class="control">
-                        <form id="my_payment_form" method="POST" action="/transaction">
-                            <input type="hidden" name="my_order_id" value="12345" />
-                            <script>
-                                jsclient.injectForm(document.getElementById('my_payment_form'), {
-                                    "organisation_id": "5d2eeef0628e0432e2826bff",
-                                    "no_style": true,
-                                });
-                            </script>
-                        </form>
+                    <div class="column">
+                        <h2 class="title is-4">
+                            Shipping & Billing
+                        </h2>
+                        <div class="content">
+                            <p>{{customer['billing']['first_name']}} {{customer['billing']['last_name']}}</p>
+                            <p>{{customer['email_address']}}</p>
+                            <p>{{customer['billing']['address_1']}}</p>
+                            <p>{{customer['billing']['postal_code']}}</p>
+                            <p>{{customer['billing']['country_code']}}</p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h2 class="title is-4">
+                                Payment Details
+                        </h2>
+                        <div class="control">
+                            <form id="my_payment_form" method="POST" action="/transaction">
+                                <input type="hidden" name="my_order_id" value="12345" />
+                                <script>
+                                    jsclient.injectForm(document.getElementById('my_payment_form'), {
+                                        "organisation_id": "5d2eeef0628e0432e2826bff",
+                                        "no_style": true,
+                                    });
+                                </script>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

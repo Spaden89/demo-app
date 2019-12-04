@@ -44,7 +44,7 @@ def getTransaction(trx_id, params):
     print(f'GET transaction response: {trx_json}')
     return trx_json
 
-def createCustomer(email, first_name, last_name, address, city, country):
+def createCustomer(email, first_name, last_name, address, city, postal_code, country):
     customer_body = {
         "organisation": organisation,
         "email_address": email,
@@ -54,7 +54,7 @@ def createCustomer(email, first_name, last_name, address, city, country):
             "address_1": address,
             "city": city,
             "country_code": country,
-            "postal_code": "WA4 5GX"
+            "postal_code": postal_code
         }
     }
     # POST the customer details and capture the response as a json object
