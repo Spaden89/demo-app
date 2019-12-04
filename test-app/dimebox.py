@@ -63,6 +63,20 @@ def createCustomer(email, first_name, last_name, address, city, country):
     print(f'POST customer response: {customer_json}')
     return customer_json
 
+def getCustomer(customer_id):
+    # GET transaction, card, customer details
+    customer_req_get = requests.get(api_host + 'customer/' + customer_id, headers = headers)
+    customer_json = customer_req_get.json()
+    print(f'GET customer response: {customer_json}')
+    return customer_json
+
+def getCard(card_id):
+    # GET transaction, card, customer details
+    card_req_get = requests.get(api_host + 'card/' + card_id, headers = headers)
+    card_json = card_req_get.json()
+    print(f'GET card response: {card_json}')
+    return card_json
+
 #createTransaction
 #getTransaction
 #createCustomer

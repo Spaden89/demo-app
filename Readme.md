@@ -30,7 +30,9 @@ Done
 
 
 To do
+- Include option to use an already stored card
 - refactor design
-- include option to use an already stored card
-- add checkout functionality
-- error handling for visiting thankyou without an ID
+- Create UI components for displaying transaction, customer and card details
+- Error page
+- Create a customer class
+- request test account
