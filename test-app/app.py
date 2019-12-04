@@ -44,10 +44,19 @@ def websiteVisit():
 def transaction():
     if request.method == 'POST':
         # create transaction and return json and transaction ID
-        card = request.form.get('card')
-        customer = session.get('customer')
-        client_ip_address = session.get('client_ip_address')
-        client_user_agent = session.get('client_user_agent')
+        if request.form.get('card'):
+            card = request.form.get('card')
+        else:
+            card = os.environ.get("CARD")
+        if session.get('customer'):
+            customer = session.get('customer')
+        else:
+            customer = os.environ.get("CUSTOMER")
+        if session.get('client_ip_address') and session.get('client_user_agent'):
+            client_ip_address = session.get('client_ip_address')
+            client_user_agent = session.get('client_user_agent')
+        else:
+            (client_ip_address, client_user_agent) = websiteVisit()
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction=trx_id))
