@@ -27,11 +27,11 @@ Done
     - ~/createTransaction endpoint for submitting transactions~
     - ~/newcustomer~ 
 - ~Refactor for DRY~
-
+- ~Include option to use an already stored card~
+- ~refactor design~
 
 To do
-- Include option to use an already stored card
-- refactor design
+- Include Checkout functionality
 - Create UI components for displaying transaction, customer and card details
 - Error page
 - Create a customer class
