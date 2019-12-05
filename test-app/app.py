@@ -128,6 +128,26 @@ def thank_you(transaction):
     trx_link = ui_host + str(trx_json['_id'])
     return render_template('thankyou.html', transaction = trx_json, trx_link = trx_link)
 
+@app.route('/demo/checkout', methods=['GET'])
+def demo_checkout():
+    (client_ip_address, client_user_agent) = websiteVisit()
+    return render_template('checkout.html')
+
+@app.route('/checkout', methods=['POST'])
+def checkout_endpoint():
+    if request.method == 'POST':
+        # generate a checkout page
+        if request.form.get('3DS'):
+            # set 3ds to enabled
+            True
+        if request.form.get('capture'):
+            # set capture_now to true
+            True
+        # create checkout url
+        checkout_json = dimebox.createCheckout(customer, threeds, capture)
+        checkout_id = checkout_json['_id']
+        checkout_url = checkout_json['url']
+        return redirect(checkout_url)
 
 @app.route('/thankyou_detailed/<transaction>', methods=['GET'])
 def get_transaction_id(transaction):
