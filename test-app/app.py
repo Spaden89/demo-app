@@ -76,6 +76,16 @@ def demo_default():
 @app.route('/demo/newcustomer', methods=['GET','POST'])
 def newcustomer():
     (client_ip_address, client_user_agent) = websiteVisit()
+    session['client_ip_address'] = client_ip_address
+    session['client_user_agent'] = client_user_agent
+    session_client_ip = session.get('client_ip_address')
+    session_client_user = session.get('client_user_agent')
+    print(f'client ip stored in session: {session_client_ip}')
+    print(f'client user agent stored in session: {session_client_user}')
+    return render_template('newcustomer.html')
+
+@app.route('/customer', methods=['POST'])
+def customer_endpoint():
     if request.method == 'POST':
         print("Customer form has been filled:" + str(request.form.to_dict(flat=False)))
         (first, last) = request.form['name'].split(" ", 1) 
@@ -86,8 +96,6 @@ def newcustomer():
         country = request.form['country']
         customer_json = dimebox.createCustomer(email, first, last, address, city, postal_code, country)
         session['customer'] = customer_json['_id']
-        session['client_ip_address'] = client_ip_address
-        session['client_user_agent'] = client_user_agent
         session_customer = session.get('customer')
         session_client_ip = session.get('client_ip_address')
         session_client_user = session.get('client_user_agent')
@@ -96,7 +104,6 @@ def newcustomer():
         print(f'client user agent stored in session: {session_client_user}')
         customer = customer_json
         return render_template('existingcustomer.html', customer = customer)
-    return render_template('newcustomer.html')
 
 @app.route('/thankyou/<transaction>', methods=['GET'])
 def thank_you(transaction):
