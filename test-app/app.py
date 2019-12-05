@@ -73,7 +73,7 @@ def demo_default():
         return redirect(url_for('thank_you',transaction=trx_id))
     return render_template('demo.html')
 
-@app.route('/demo/newcustomer', methods=['GET')
+@app.route('/demo/newcustomer', methods=['GET'])
 def newcustomer():
     (client_ip_address, client_user_agent) = websiteVisit()
     session['client_ip_address'] = client_ip_address
