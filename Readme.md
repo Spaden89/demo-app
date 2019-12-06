@@ -32,6 +32,8 @@ Done
 
 To do
 - Include Checkout functionality
+- Add card to customer
+- Add config for auto capture
 - Create UI components for displaying transaction, customer and card details
 - Error page
 - Create a customer class
