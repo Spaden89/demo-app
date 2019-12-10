@@ -147,7 +147,7 @@ def checkout_endpoint():
         # generate a checkout page
         amount = 1234 
         merchant_reference = "VF-001" 
-        return_url = request.url_root + 'thank_you'
+        return_url = request.url_root + 'thankyou'
         # process transaction
         if request.form.get('process_transaction'):
             process_transaction = False
