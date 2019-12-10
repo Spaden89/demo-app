@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel= "stylesheet" href="{{ url_for('static', filename='checkout_template.css')}}">
+</head>
+
+<body>
+    <div class="m-template">
+        <div class="m-template__body">
+            <div class="m-trx">
+                <div class="m-trx__amt amount">
+                    <p id="amount"></p>
+                </div>
+                <div class="m-trx__meta details">
+                    <p id="organisation_name"></p>
+                    <p id="merchant_reference"></p>
+                </div>
+                <div class="">
+                    <p>Trigger 3DS2 with card 4000000000001091</p>
+                </div>
+            </div>
+            <div class="m-payment__form">
+                <form id="payment_fieldset" method="POST"></form>
+                <div id="jwt"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

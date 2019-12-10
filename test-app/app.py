@@ -140,7 +140,7 @@ def checkout_endpoint():
         # generate a checkout page
         amount = 1234 
         merchant_reference = "VF-001" 
-        return_url = request.url_root + 'thankyou'
+        return_url = url_for('checkout_template')
         # process transaction
         if request.form.get('process_transaction'):
             process_transaction = False
@@ -191,6 +191,10 @@ def get_transaction_id(transaction):
     trx_link = ui_host + str(trx_json['_id'])
     return render_template('thankyou_detailed.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
+@app.route('/checkout_template', methods=['GET'])
+def checkout_template():
+    (client_ip_address, client_user_agent) = websiteVisit()
+    return render_template('checkout_template.html')
 
 if __name__ == '__main__':
     app.run()
