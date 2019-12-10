@@ -16,8 +16,10 @@ app.config.from_pyfile('config.py')
 
 host = os.environ.get("VERIFONE_HOST")
 api_key = os.environ.get("API_KEY")
+account = os.environ.get("ACCOUNT")
 organisation = os.environ.get("ORGANISATION")
 customer = os.environ.get("CUSTOMER")
+threeds_authenticator = os.environ.get("AUTHENTICATOR")
 
 ui_host = host + 'reports/transactions/'
 api_host = host + 'v1/'
@@ -59,7 +61,7 @@ def transaction():
             (client_ip_address, client_user_agent) = websiteVisit()
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thank_you',transaction=trx_id))
+        return redirect(url_for('thank_you',transaction=[trx_id]))
     return render_template('demo.html')
 
 @app.route('/demo/default', methods=['GET','POST'])
@@ -70,7 +72,7 @@ def demo_default():
         card = request.form.get('card')
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thank_you',transaction=trx_id))
+        return redirect(url_for('thank_you',transaction=[trx_id]))
     return render_template('demo.html')
 
 @app.route('/demo/newcustomer', methods=['GET'])
@@ -105,9 +107,9 @@ def customer_endpoint():
         customer = customer_json
         return render_template('existingcustomer.html', customer = customer)
 
-@app.route('/thankyou/<transaction>', methods=['GET'])
-def thank_you(transaction):
-    trx_id = transaction
+@app.route('/thankyou', methods=['GET'])
+def thank_you():
+    trx_id = request.args.get('transaction')
     (client_ip_address, client_user_agent) = websiteVisit()
     print(f"Client User-Agent is: {client_user_agent}")
     params = {
@@ -137,14 +139,40 @@ def demo_checkout():
 def checkout_endpoint():
     if request.method == 'POST':
         # generate a checkout page
-        if request.form.get('3DS'):
-            # set 3ds to enabled
-            True
-        if request.form.get('capture'):
-            # set capture_now to true
-            True
+        amount = 1234 
+        merchant_reference = "VF-001" 
+        return_url = request.url_root + 'thank_you'
+        # process transaction
+        if request.form.get('process_transaction'):
+            process_transaction = True
+        else:
+            process_transaction = False
+        # immediate capture
+        if request.form.get('capture_now'):
+            capture_now = True
+        else:
+            capture_now = False
+        # enable 3ds
+        if request.form.get('threeds_enabled'):
+            threeds_enabled = True
+        else:
+            threeds_enabled = False  
+        threeds_currency = "GBP"
+        threeds_transaction_mode = "S"
+        template = api_host + "checkout/template/v1"
         # create checkout url
-        checkout_json = dimebox.createCheckout(customer, threeds, capture)
+        checkout_json = dimebox.createCheckout(account, 
+            amount, 
+            customer, 
+            merchant_reference, 
+            return_url, 
+            process_transaction, 
+            capture_now, 
+            threeds_authenticator, 
+            threeds_enabled,
+            threeds_currency, 
+            threeds_transaction_mode,
+            template)
         checkout_id = checkout_json['_id']
         checkout_url = checkout_json['url']
         return redirect(checkout_url)
