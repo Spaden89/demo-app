@@ -5,3 +5,4 @@ DEBUG = False
 # set the organisation ID here ORGANISATION=
 # set the account ID here ACCOUNT=
 # set the customer ID here CUSTOMER=
+# set the authenticator ID here AUTHENTICATOR=
