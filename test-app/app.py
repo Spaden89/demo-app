@@ -140,7 +140,7 @@ def checkout_endpoint():
         # generate a checkout page
         amount = 1234 
         merchant_reference = "VF-001" 
-        return_url = host + url_for('thank_you')
+        return_url = request.host_root + url_for('thank_you')
         # process transaction
         if request.form.get('process_transaction'):
             process_transaction = False
@@ -158,7 +158,7 @@ def checkout_endpoint():
             threeds_enabled = False  
         threeds_currency = "GBP"
         threeds_transaction_mode = "S"
-        template = api_host + "/checkout/template/v1"
+        template = api_host + "checkout/template/v1"
         # create checkout url
         checkout_json = dimebox.createCheckout(account, 
             amount, 
