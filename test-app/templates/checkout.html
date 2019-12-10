@@ -50,13 +50,19 @@
 						<form id="create_checkout_form" method="POST" action="/checkout" >
 							<div class="field">
 								<label class="checkbox">
-									<input type="checkbox" name="3DS">
+									<input type="checkbox" name="threeds_enabled">
 									3DS
 								</label>
 							</div>
 							<div class="field">
 								<label class="checkbox">
-									<input type="checkbox" name="capture">
+									<input type="checkbox" name="process_transaction">
+									Tokenization only
+								</label>
+							</div>
+							<div class="field">
+								<label class="checkbox">
+									<input type="checkbox" name="capture_now">
 									Capture transaction
 								</label>
 							</div>

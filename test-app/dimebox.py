@@ -9,6 +9,8 @@ host = os.environ.get("VERIFONE_HOST")
 api_key = os.environ.get("API_KEY")
 account = os.environ.get("ACCOUNT")
 organisation = os.environ.get("ORGANISATION")
+customer = os.environ.get("CUSTOMER")
+threeds_authenticator = os.environ.get("AUTHENTICATOR")
 
 ui_host = host + 'reports/transactions/'
 api_host = host + 'v1/'
@@ -76,6 +78,47 @@ def getCard(card_id):
     card_json = card_req_get.json()
     print(f'GET card response: {card_json}')
     return card_json
+
+def createCheckout(
+    account, 
+    amount, 
+    customer, 
+    merchant_reference, 
+    return_url, 
+    process_transaction, 
+    capture_now, 
+    threeds_authenticator, 
+    threeds_enabled,
+    threeds_currency, 
+    threeds_transaction_mode,
+    template):
+    checkout_body = {
+    "account": account,
+    "amount": amount,
+    "customer": customer,
+    "merchant_reference": merchant_reference,
+    "return_url": return_url,
+    "configurations": {
+        "card": {
+            "process_transaction": process_transaction,
+            "dynamic_descriptor": "VF-001",
+            "capture_now": capture_now,
+            "threed_secure": {
+                "authenticator": threeds_authenticator,
+                "enabled": threeds_enabled,
+                "currency_code": threeds_currency,
+                "transaction_mode": threeds_transaction_mode
+            }
+        }
+    },
+    "template": template
+    }
+    print(checkout_body)
+    # POST the customer details and capture the response as a json object
+    checkout_req = requests.post(api_host + 'checkout/', headers = headers, json = checkout_body)
+    checkout_json = checkout_req.json()
+    print(f'POST customer response: {checkout_json}')
+    return checkout_json
 
 #createTransaction
 #getTransaction
