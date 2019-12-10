@@ -96,7 +96,7 @@ def createCheckout(
     # POST the customer details and capture the response as a json object
     checkout_req = requests.post(api_host + 'checkout/', headers = headers, json = checkout_body)
     checkout_json = checkout_req.json()
-    print(f'POST customer response: {checkout_json}')
+    print(f'POST checkout response: {checkout_json}')
     return checkout_json
 
 def getCustomer(customer_id):
@@ -115,6 +115,8 @@ def getCard(card_id):
 
 def getAuthentication(authentication_id):
     # GET authentication details
+    print(f'api host: {api_host}3d/')
+    print(f'authenticaiton_id: {authentication_id}')
     authentication_req_get = requests.get(api_host + '3d/' + authentication_id, headers = headers)
     authentication_json = authentication_req_get.json()
     print(f'GET authentication response: {authentication_json}')
