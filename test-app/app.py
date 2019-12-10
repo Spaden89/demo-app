@@ -158,7 +158,7 @@ def checkout_endpoint():
             threeds_enabled = False  
         threeds_currency = "GBP"
         threeds_transaction_mode = "S"
-        template = host + url_for('checkout_template')
+        template = api_host + "/checkout/template/v1"
         # create checkout url
         checkout_json = dimebox.createCheckout(account, 
             amount, 
