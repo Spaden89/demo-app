@@ -12,8 +12,8 @@ organisation = os.environ.get("ORGANISATION")
 customer = os.environ.get("CUSTOMER")
 threeds_authenticator = os.environ.get("AUTHENTICATOR")
 
-ui_host = host + 'reports/transactions/'
-api_host = host + 'v1/'
+ui_host = host + '/reports/transactions/'
+api_host = host + '/v1/'
 
 headers = {
     "Content-Type": "application/json",
@@ -53,7 +53,7 @@ def createCustomer(email, first_name, last_name, address, city, postal_code, cou
         }
     }
     # POST the customer details and capture the response as a json object
-    customer_req = requests.post(api_host + 'customer/', headers = headers, json = customer_body)
+    customer_req = requests.post(api_host + '/customer/', headers = headers, json = customer_body)
     customer_json = customer_req.json()
     print(f'POST customer response: {customer_json}')
     return customer_json
@@ -94,35 +94,35 @@ def createCheckout(
     }
     print(checkout_body)
     # POST the customer details and capture the response as a json object
-    checkout_req = requests.post(api_host + 'checkout/', headers = headers, json = checkout_body)
+    checkout_req = requests.post(api_host + '/checkout/', headers = headers, json = checkout_body)
     checkout_json = checkout_req.json()
     print(f'POST checkout response: {checkout_json}')
     return checkout_json
 
 def getCustomer(customer_id):
     # GET transaction, card, customer details
-    customer_req_get = requests.get(api_host + 'customer/' + customer_id, headers = headers)
+    customer_req_get = requests.get(api_host + '/customer/' + customer_id, headers = headers)
     customer_json = customer_req_get.json()
     print(f'GET customer response: {customer_json}')
     return customer_json
 
 def getCard(card_id):
     # GET card details
-    card_req_get = requests.get(api_host + 'card/' + card_id, headers = headers)
+    card_req_get = requests.get(api_host + '/card/' + card_id, headers = headers)
     card_json = card_req_get.json()
     print(f'GET card response: {card_json}')
     return card_json
 
 def getAuthentication(authentication_id):
     # GET authentication details
-    authentication_req_get = requests.get(api_host + '3d/' + authentication_id, headers = headers)
+    authentication_req_get = requests.get(api_host + '/3d/' + authentication_id, headers = headers)
     authentication_json = authentication_req_get.json()
     print(f'GET authentication response: {authentication_json}')
     return authentication_json
 
 def getTransaction(trx_id, params):
     # GET transaction, card, customer details
-    trx_req_get = requests.get(api_host + 'transaction/' + trx_id, params = params, headers = headers)
+    trx_req_get = requests.get(api_host + '/transaction/' + trx_id, params = params, headers = headers)
     trx_json = trx_req_get.json()
     print(f'GET transaction response: {trx_json}')
     return trx_json
