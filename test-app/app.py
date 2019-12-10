@@ -140,7 +140,7 @@ def checkout_endpoint():
         # generate a checkout page
         amount = 1234 
         merchant_reference = "VF-001" 
-        return_url = url_for('checkout_template')
+        return_url = host + url_for('checkout_template')
         # process transaction
         if request.form.get('process_transaction'):
             process_transaction = False
