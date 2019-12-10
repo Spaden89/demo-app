@@ -115,8 +115,6 @@ def getCard(card_id):
 
 def getAuthentication(authentication_id):
     # GET authentication details
-    print(f'api host: {api_host}3d/')
-    print(f'authenticaiton_id: {authentication_id}')
     authentication_req_get = requests.get(api_host + '3d/' + authentication_id, headers = headers)
     authentication_json = authentication_req_get.json()
     print(f'GET authentication response: {authentication_json}')

@@ -110,31 +110,24 @@ def customer_endpoint():
 @app.route('/thankyou', methods=['GET'])
 def thank_you():
     (client_ip_address, client_user_agent) = websiteVisit()
-    trx_json = {"not":"provided"}
-    trx_link = {"not":"provided"}
-    authentication_json = {"not":"provided"}    
-    card_json = {"not":"provided"}
     if request.args.get('transaction_id'):
-        trx_id = request.args.get('transaction_id')
-        print(trx_id)
+        transaction_id = request.args.get('transaction_id')
         params = {
         '_populate':'card+customer'
         }
         # GET transaction
-        trx_json = dimebox.getTransaction(trx_id, params)
-        print(trx_json)
-        trx_link = ui_host + str(trx_json['_id'])
+        transaction_json = dimebox.getTransaction(transaction_id, params)
+        transaction_link = ui_host + str(transaction_json['_id'])
     if request.args.get('authentication_id'):
+        customer_json = dimebox.getCustomer(customer)
         authentication_id = request.args.get('authentication_id')
-        print(authentication_id)
         authentication_json = dimebox.getAuthentication(authentication_id)
-        print(authentication_json)
     if request.args.get('card_id'):
+        customer_json = dimebox.getCustomer(customer)
         card_id = request.args.get('card_id')
-        print(card_id)
         card_json = dimebox.getCard(card_id)
-        print(card_json)
-    return render_template('thankyou.html', transaction = trx_json, trx_link = trx_link, authentication = authentication_json, card = card_json)
+        card_link = host + 'administration/cards/' + card_id
+    return render_template('thankyou.html', **locals())
 
 @app.route('/demo/checkout', methods=['GET'])
 def demo_checkout():
