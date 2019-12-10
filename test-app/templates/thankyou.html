@@ -18,11 +18,20 @@
 						Delivery details
 					</h4>
 					<div class="content">
-						<p>{{transaction['customer']['billing']['first_name']}} {{transaction['customer']['billing']['last_name']}}</p>
-						<p>{{transaction['customer']['email_address']}}</p>
-						<p>{{transaction['customer']['billing']['address_1']}}</p>
-						<p>{{transaction['customer']['billing']['postal_code']}}</p>
-						<p>{{transaction['customer']['billing']['country_code']}}</p>
+					{% if transaction_json %}
+						<p>{{transaction_json.customer.billing.first_name}} {{transaction_json.customer.billing.last_name}}</p>
+						<p>{{transaction_json.customer.email_address}}</p>
+						<p>{{transaction_json.customer.billing.address_1}}</p>
+						<p>{{transaction_json.customer.billing.postal_code}}</p>
+						<p>{{transaction_json.customer.billing.country_code}}</p>
+					{% endif %}
+					{% if card_json or authentication_json %}
+						<p>{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}</p>
+						<p>{{customer_json.email_address}}</p>
+						<p>{{customer_json.billing.address_1}}</p>
+						<p>{{customer_json.billing.postal_code}}</p>
+						<p>{{customer_json.billing.country_code}}</p>
+					{% endif %}
 					</div>
 				</div>
 				<div class="column">
@@ -30,7 +39,24 @@
 						Payment details
 					</h4>
 					<div class="content">
-						<p class="is-italic"><a href="{{ trx_link }}" target="_blank">Payed {{transaction['amount']}} with {{transaction['card']['brand']}} card ending with {{transaction['card']['last_four']}}</a></p>
+					{% if transaction_json %}
+						<p class="is-italic"><a href="{{ transaction_link }}" target="_blank">Payed {{transaction_json.amount}} with {{transaction_json.card.brand}} card ending with {{transaction_json.card.last_four}}</a></p>
+					{% endif %}
+					{% if card_json %}
+						<p class="is-italic"><a href="{{ card_link }}" target="_blank">Tokenized card ending with {{card_json.last_four}}</a></p>
+					{% endif %}
+					{% if authentication_json %}
+					<h5 class="title is-5">
+						Authentication details
+					</h5>
+						<p>3DS Version {{authentication_json.authentication.threeds_version}}</p>
+						<p>Enrolled {{authentication_json.authentication.enrolled}}</p>
+						<p>Pares status {{authentication_json.authentication.pares_status}}</p>
+						<p>ECI {{authentication_json.authentication.eci_flag}}</p>
+						<p>CAVV {{authentication_json.authentication.eci_flag}}</p>
+						<p>Error number {{authentication_json.authentication.error_no}}</p>
+						<p>Error description {{authentication_json.authentication.error_desc}}</p>
+					{% endif %}
 					</div>
 				</div>
 			</div>
