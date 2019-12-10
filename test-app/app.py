@@ -144,9 +144,9 @@ def checkout_endpoint():
         return_url = request.url_root + 'thank_you'
         # process transaction
         if request.form.get('process_transaction'):
-            process_transaction = True
-        else:
             process_transaction = False
+        else:
+            process_transaction = True
         # immediate capture
         if request.form.get('capture_now'):
             capture_now = True
