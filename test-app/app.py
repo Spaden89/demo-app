@@ -21,8 +21,8 @@ organisation = os.environ.get("ORGANISATION")
 customer = os.environ.get("CUSTOMER")
 threeds_authenticator = os.environ.get("AUTHENTICATOR")
 
-ui_host = host + 'reports/transactions/'
-api_host = host + 'v1/'
+ui_host = host + '/reports/transactions/'
+api_host = host + '/v1/'
 
 # Set the api header
 headers = {
@@ -126,7 +126,7 @@ def thank_you():
         customer_json = dimebox.getCustomer(customer)
         card_id = request.args.get('card_id')
         card_json = dimebox.getCard(card_id)
-        card_link = host + 'administration/cards/' + card_id
+        card_link = host + '/administration/cards/' + card_id
     return render_template('thankyou.html', **locals())
 
 @app.route('/demo/checkout', methods=['GET'])
@@ -158,7 +158,7 @@ def checkout_endpoint():
             threeds_enabled = False  
         threeds_currency = "GBP"
         threeds_transaction_mode = "S"
-        template = api_host + "checkout/template/v1"
+        template = api_host + "/checkout/template/v1"
         # create checkout url
         checkout_json = dimebox.createCheckout(account, 
             amount, 
