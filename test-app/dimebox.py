@@ -92,7 +92,7 @@ def createCheckout(
     },
     "template": template
     }
-    print(checkout_body)
+    print(f'POST Checkout body: {checkout_body}')
     # POST the customer details and capture the response as a json object
     checkout_req = requests.post(api_host + '/checkout/', headers = headers, json = checkout_body)
     checkout_json = checkout_req.json()
