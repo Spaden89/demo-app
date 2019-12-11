@@ -2,7 +2,7 @@ from flask import Flask, jsonify, abort, request, render_template, session, redi
 import requests
 import os
 import json
-from json2html import *
+# from json2html import *
 import dimebox
 from flask_qrcode import QRcode
 
@@ -144,7 +144,7 @@ def thank_you():
 
 @app.route('/demo/checkout', methods=['GET'])
 def demo_checkout():
-    (client_ip_address, client_user_agent) = websiteVisit()
+    websiteVisit()
     return render_template('checkout.html')
 
 @app.route('/checkout', methods=['POST'])
@@ -197,26 +197,26 @@ def checkout_endpoint():
             return redirect(checkout_url)
         else:
             print(f'Generating QR code to checkout url: {checkout_url}')
-            return render_template('checkout_qr.html', checkout_url = checkout_url)
+            return render_template('checkout_qr.html', **locals())
 
-@app.route('/thankyou_detailed/<transaction>', methods=['GET'])
-def get_transaction_id(transaction):
-    trx_id = transaction
-    (client_ip_address, client_user_agent) = websiteVisit()
-    print(f"Client User-Agent is: {client_user_agent}")
-    params = {
-        '_populate':'card+customer'
-    }
-    # GET transaction
-    trx_json = dimebox.getTransaction(trx_id, params)
-    print(trx_json)
-    trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
-    trx_link = ui_host + str(trx_json['_id'])
-    return render_template('thankyou_detailed.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
+# @app.route('/thankyou_detailed/<transaction>', methods=['GET'])
+# def get_transaction_id(transaction):
+#     trx_id = transaction
+#     (client_ip_address, client_user_agent) = websiteVisit()
+#     print(f"Client User-Agent is: {client_user_agent}")
+#     params = {
+#         '_populate':'card+customer'
+#     }
+#     # GET transaction
+#     trx_json = dimebox.getTransaction(trx_id, params)
+#     print(trx_json)
+#     trx_table = json2html.convert(json = trx_json, table_attributes="class=\"table is-striped\"")
+#     trx_link = ui_host + str(trx_json['_id'])
+#     return render_template('thankyou_detailed.html', trx_table = trx_table, transaction = trx_json, trx_link = trx_link)
 
 @app.route('/checkout_template', methods=['GET'])
 def checkout_template():
-    (client_ip_address, client_user_agent) = websiteVisit()
+    websiteVisit()
     return render_template('checkout_template.html')
 
 if __name__ == '__main__':

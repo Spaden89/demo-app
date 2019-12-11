@@ -31,7 +31,7 @@ Done
 - ~refactor design~
 - ~Include Checkout functionality~
 - ~Card capture configuration~
-
+- ~Add QR code~
 
 To do
 - Add Bergstroms styling
@@ -41,4 +41,3 @@ To do
 - Error page
 - Create a customer class
 - request test account
-- Add QR code
