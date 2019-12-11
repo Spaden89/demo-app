@@ -25,7 +25,13 @@
 						<p>{{transaction_json.customer.billing.postal_code}}</p>
 						<p>{{transaction_json.customer.billing.country_code}}</p>
 					{% endif %}
-					{% if card_json or authentication_json %}
+					{% if authentication_json and not transaction_json %}
+						<p>{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}</p>
+						<p>{{customer_json.email_address}}</p>
+						<p>{{customer_json.billing.address_1}}</p>
+						<p>{{customer_json.billing.postal_code}}</p>
+						<p>{{customer_json.billing.country_code}}</p>
+					{% elif card_json %}
 						<p>{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}</p>
 						<p>{{customer_json.email_address}}</p>
 						<p>{{customer_json.billing.address_1}}</p>
@@ -58,7 +64,7 @@
 						<p>ECI:</p>
 						<p class="has-text-weight-semibold">{{authentication_json.authentication.eci_flag}}</p>
 						<p>CAVV</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.eci_flag}}</p>
+						<p class="has-text-weight-semibold">{{authentication_json.authentication.cavv}}</p>
 						<p>Error number:</p>
 						<p class="has-text-weight-semibold">{{authentication_json.authentication.error_no}}</p>
 						<p>Error description</p>
