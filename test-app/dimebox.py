@@ -20,13 +20,18 @@ headers = {
     "x-apikey": api_key
 }
 
-def createTransaction(card, customer, client_ip_address, client_user_agent):
+def createTransaction(
+    card, 
+    capture_now,
+    customer, 
+    client_ip_address, 
+    client_user_agent):
     # Create transaction json body
     transaction_body = {
         "account": account,
         "amount": 1234,
         "card": card,
-        "capture_now": True,
+        "capture_now": capture_now,
         "customer_ip": client_ip_address,
         "customer": customer,
         "dynamic_descriptor": "Demonstration Test",
