@@ -165,7 +165,12 @@ def checkout_endpoint():
         if request.form.get('threeds_enabled'):
             threeds_enabled = True
         else:
-            threeds_enabled = False  
+            threeds_enabled = False
+        # create qr code
+        if request.form.get('qr_code'):
+            qr_code = True
+        else:
+            qr_code = False
         threeds_currency = "GBP"
         threeds_transaction_mode = "S"
         template = api_host + "checkout/template/v1"
@@ -184,8 +189,12 @@ def checkout_endpoint():
             template)
         checkout_id = checkout_json['_id']
         checkout_url = checkout_json['url']
-        print(f'Redirecting to checkout url: {checkout_url}')
-        return redirect(checkout_url)
+        if qr_code is False:
+            print(f'Redirecting to checkout url: {checkout_url}')
+            return redirect(checkout_url)
+        else:
+            print(f'Generating QR code to checkout url: {checkout_url}')
+            return render_template('checkout_qr.html', checkout_url = checkout_url)
 
 @app.route('/thankyou_detailed/<transaction>', methods=['GET'])
 def get_transaction_id(transaction):
