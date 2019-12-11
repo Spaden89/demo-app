@@ -12,6 +12,7 @@ gunicorn = "*"
 requests = "*"
 python-dotenv = "*"
 json2html = "*"
+flask-qrcode = "*"
 
 [requires]
 python_version = "3.7"

@@ -57,6 +57,12 @@
 					<div class="control">
 						<form id="my_payment_form" method="POST" action="/demo/default">
 							<input type="hidden" name="my_order_id" value="12345" />
+							<div class="field">
+								<label class="checkbox">
+									<input type="checkbox" name="capture_now">
+									Capture transaction
+								</label>
+							</div>
 							<script>
 								jsclient.injectForm(document.getElementById('my_payment_form'), {
 									"organisation_id": "5d2eeef0628e0432e2826bff",

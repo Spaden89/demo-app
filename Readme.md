@@ -30,6 +30,7 @@ Done
 - ~Include option to use an already stored card~
 - ~refactor design~
 - ~Include Checkout functionality~
+- ~Card capture configuration~
 
 
 To do

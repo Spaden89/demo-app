@@ -4,10 +4,13 @@ import os
 import json
 from json2html import *
 import dimebox
+from flask_qrcode import QRcode
 
 app = Flask(__name__, instance_relative_config=True)
 # Set secret key for sessions
 app.secret_key = os.environ.get("SECRET_KEY")
+
+QRcode(app)
 
 #Loading default configuration
 app.config.from_object('config.default')
@@ -46,6 +49,7 @@ def websiteVisit():
 def transaction():
     if request.method == 'POST':
         # create transaction and return json and transaction ID
+        print(request.form)
         if request.form.get('card'):
             card = request.form.get('card')
         else:
@@ -59,7 +63,11 @@ def transaction():
             client_user_agent = session.get('client_user_agent')
         else:
             (client_ip_address, client_user_agent) = websiteVisit()
-        trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
+        if request.form.get('capture_now'):
+            capture_now = True
+        else:
+            capture_now = False
+        trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
     return render_template('demo.html')
@@ -69,8 +77,13 @@ def demo_default():
     (client_ip_address, client_user_agent) = websiteVisit()
     if request.method == 'POST':
         # store the card token in the card variable
+        print(request.form)
         card = request.form.get('card')
-        trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
+        if request.form.get('capture_now'):
+            capture_now = True
+        else:
+            capture_now = False
+        trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
     return render_template('demo.html')
@@ -155,7 +168,12 @@ def checkout_endpoint():
         if request.form.get('threeds_enabled'):
             threeds_enabled = True
         else:
-            threeds_enabled = False  
+            threeds_enabled = False
+        # create qr code
+        if request.form.get('qr_code'):
+            qr_code = True
+        else:
+            qr_code = False
         threeds_currency = "GBP"
         threeds_transaction_mode = "S"
         template = api_host + "checkout/template/v1"
@@ -174,8 +192,12 @@ def checkout_endpoint():
             template)
         checkout_id = checkout_json['_id']
         checkout_url = checkout_json['url']
-        print(f'Redirecting to checkout url: {checkout_url}')
-        return redirect(checkout_url)
+        if qr_code is False:
+            print(f'Redirecting to checkout url: {checkout_url}')
+            return redirect(checkout_url)
+        else:
+            print(f'Generating QR code to checkout url: {checkout_url}')
+            return render_template('checkout_qr.html', checkout_url = checkout_url)
 
 @app.route('/thankyou_detailed/<transaction>', methods=['GET'])
 def get_transaction_id(transaction):
