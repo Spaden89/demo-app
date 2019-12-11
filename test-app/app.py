@@ -4,10 +4,13 @@ import os
 import json
 from json2html import *
 import dimebox
+from flask_qrcode import QRcode
 
 app = Flask(__name__, instance_relative_config=True)
 # Set secret key for sessions
 app.secret_key = os.environ.get("SECRET_KEY")
+
+QRcode(app)
 
 #Loading default configuration
 app.config.from_object('config.default')
