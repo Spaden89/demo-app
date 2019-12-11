@@ -61,7 +61,7 @@ def transaction():
             (client_ip_address, client_user_agent) = websiteVisit()
         trx_json = dimebox.createTransaction(card, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
-        return redirect(url_for('thank_you',transaction=[trx_id]))
+        return redirect(url_for('thank_you',transaction_id=[trx_id]))
     return render_template('demo.html')
 
 @app.route('/demo/default', methods=['GET','POST'])
@@ -174,6 +174,7 @@ def checkout_endpoint():
             template)
         checkout_id = checkout_json['_id']
         checkout_url = checkout_json['url']
+        print(f'Redirecting to checkout url: {checkout_url}')
         return redirect(checkout_url)
 
 @app.route('/thankyou_detailed/<transaction>', methods=['GET'])
