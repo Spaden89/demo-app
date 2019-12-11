@@ -29,12 +29,15 @@ Done
 - ~Refactor for DRY~
 - ~Include option to use an already stored card~
 - ~refactor design~
+- ~Include Checkout functionality~
+
 
 To do
-- Include Checkout functionality
+- Add Bergstroms styling
 - Add card to customer
 - Add config for auto capture
 - Create UI components for displaying transaction, customer and card details
 - Error page
 - Create a customer class
 - request test account
+- Add QR code

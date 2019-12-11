@@ -34,10 +34,11 @@ def createTransaction(card, customer, client_ip_address, client_user_agent):
         "user_agent": client_user_agent,
     }
     # POST transaction request and capture the response as a json object
-    trx_req_post = requests.post(api_host + 'transaction', headers = headers, json = transaction_body)
-    trx_json = trx_req_post.json()
-    print(f'POST transaction response: {trx_json}')
-    return trx_json
+    print(f'POST transaction request: {transaction_body}')
+    transaction_req_post = requests.post(api_host + 'transaction', headers = headers, json = transaction_body)
+    transaction_json = transaction_req_post.json()
+    print(f'POST transaction response: {transaction_json}')
+    return transaction_json
 
 def createCustomer(email, first_name, last_name, address, city, postal_code, country):
     customer_body = {
@@ -53,9 +54,10 @@ def createCustomer(email, first_name, last_name, address, city, postal_code, cou
         }
     }
     # POST the customer details and capture the response as a json object
+    print(f'POST request customer: {customer_body}')
     customer_req = requests.post(api_host + '/customer/', headers = headers, json = customer_body)
     customer_json = customer_req.json()
-    print(f'POST customer response: {customer_json}')
+    print(f'POST response customer: {customer_json}')
     return customer_json
 
 def createCheckout(
@@ -92,7 +94,7 @@ def createCheckout(
     },
     "template": template
     }
-    print(checkout_body)
+    print(f'POST Checkout request: {checkout_body}')
     # POST the customer details and capture the response as a json object
     checkout_req = requests.post(api_host + '/checkout/', headers = headers, json = checkout_body)
     checkout_json = checkout_req.json()
