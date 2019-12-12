@@ -86,7 +86,7 @@ def demo_default():
         trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
-    return render_template('demo.html')
+    return render_template('demo.html', card = os.environ.get("CARD"))
 
 @app.route('/demo/newcustomer', methods=['GET', 'POST'])
 def newcustomer():
