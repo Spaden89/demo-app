@@ -27,7 +27,7 @@
                     <h2 class="title is-4">
                         Shipping & Billing
                     </h2>
-                    <form id="customer_details" method="POST" action="/customer">
+                    <form id="my_payment_form" method="POST" action="/demo/newcustomer">
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Name</label>
@@ -374,7 +374,18 @@
                                 </div>
                             </div>
                         </div>
-                        <input class="button is-info" type="submit" id="_submit_customer" value="Create Customer">
+                        <div class="field">
+                            <label class="checkbox">
+                                <input type="checkbox" name="capture_now">
+                                Capture transaction
+                            </label>
+                        </div>
+                        <script>
+                            jsclient.injectForm(document.getElementById('my_payment_form'), {
+                                "organisation_id": "5d2eeef0628e0432e2826bff",
+                                "no_style": true,
+                            });
+                        </script>
                     </form>
                 </div>
             </div>

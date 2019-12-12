@@ -34,6 +34,7 @@ Done
 - ~Add QR code~
 
 To do
+- Refactor templates
 - Add Bergstroms styling
 - Add card to customer
 - Add config for auto capture

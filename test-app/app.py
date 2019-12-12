@@ -88,19 +88,9 @@ def demo_default():
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
     return render_template('demo.html')
 
-@app.route('/demo/newcustomer', methods=['GET'])
+@app.route('/demo/newcustomer', methods=['GET', 'POST'])
 def newcustomer():
     (client_ip_address, client_user_agent) = websiteVisit()
-    session['client_ip_address'] = client_ip_address
-    session['client_user_agent'] = client_user_agent
-    session_client_ip = session.get('client_ip_address')
-    session_client_user = session.get('client_user_agent')
-    print(f'client ip stored in session: {session_client_ip}')
-    print(f'client user agent stored in session: {session_client_user}')
-    return render_template('newcustomer.html')
-
-@app.route('/customer', methods=['POST'])
-def customer_endpoint():
     if request.method == 'POST':
         print("Customer form has been filled:" + str(request.form.to_dict(flat=False)))
         (first, last) = request.form['name'].split(" ", 1) 
@@ -109,16 +99,15 @@ def customer_endpoint():
         city = request.form['city']
         postal_code = request.form['postal']
         country = request.form['country']
+        card = request.form['card']
+        if request.form.get('capture_now'):
+            capture_now = True
+        else:
+            capture_now = False
         customer_json = dimebox.createCustomer(email, first, last, address, city, postal_code, country)
-        session['customer'] = customer_json['_id']
-        session_customer = session.get('customer')
-        session_client_ip = session.get('client_ip_address')
-        session_client_user = session.get('client_user_agent')
-        print(f'Customer stored in session: {session_customer}')
-        print(f'client ip stored in session: {session_client_ip}')
-        print(f'client user agent stored in session: {session_client_user}')
-        customer = customer_json
-        return render_template('existingcustomer.html', customer = customer)
+        trx_json = dimebox.createTransaction(card, capture_now, customer_json['_id'], client_ip_address, client_user_agent)
+        return redirect(url_for('thank_you',transaction_id=[trx_json['_id']]))
+    return render_template('newcustomer.html')
 
 @app.route('/thankyou', methods=['GET'])
 def thank_you():
