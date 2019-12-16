@@ -31,9 +31,11 @@ Done
 - ~refactor design~
 - ~Include Checkout functionality~
 - ~Card capture configuration~
-
+- ~Add QR code~
 
 To do
+- Fix tokenization only code + link to sandbox
+- Refactor templates
 - Add Bergstroms styling
 - Add card to customer
 - Add config for auto capture
@@ -41,4 +43,3 @@ To do
 - Error page
 - Create a customer class
 - request test account
-- Add QR code
