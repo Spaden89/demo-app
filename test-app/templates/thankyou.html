@@ -1,45 +1,41 @@
 {% extends "base.html" %}
 {% block title %} Thank you {% endblock %}
-{% block content %}
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column box is-two-thirds section">
-				<div class="column">
-					<span class="icon is-large">
-						<i class="fas fa-check-circle fa-3x"></i>
-					</span>
-					<h3 class="title is-3 has-text-centered">
-						Thank you for your order!
-					</h3>
-				</div>
-				<div class="column">
+
+						{% block box_title %}Thank you for your order!{% endblock %}
+						{% block box_content %}
+										<div class="column">
 					<h4 class="title is-4">
 						Delivery details
 					</h4>
 					<div class="content">
 					{% if transaction_json %}
-						<p>{{transaction_json.customer.billing.first_name}} {{transaction_json.customer.billing.last_name}}</p>
-						<p>{{transaction_json.customer.email_address}}</p>
-						<p>{{transaction_json.customer.billing.address_1}}</p>
-						<p>{{transaction_json.customer.billing.postal_code}}</p>
-						<p>{{transaction_json.customer.billing.city}}</p>
-						<p>{{transaction_json.customer.billing.country_code}}</p>
+						<p>
+						{{transaction_json.customer.billing.first_name}} {{transaction_json.customer.billing.last_name}}<br>
+						{{transaction_json.customer.email_address}}<br>
+						{{transaction_json.customer.billing.address_1}}<br>
+						{{transaction_json.customer.billing.postal_code}}<br>
+						{{transaction_json.customer.billing.city}}<br>
+						{{transaction_json.customer.billing.country_code}}<br>
+						</p>
 					{% endif %}
 					{% if authentication_json and not transaction_json %}
-						<p>{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}</p>
-						<p>{{customer_json.email_address}}</p>
-						<p>{{customer_json.billing.address_1}}</p>
-						<p>{{customer_json.billing.postal_code}}</p>
-						<p>{{customer_json.billing.city}}</p>
-						<p>{{customer_json.billing.country_code}}</p>
+						<p>
+						{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}<br>
+						{{customer_json.email_address}}<br>
+						{{customer_json.billing.address_1}}<br>
+						{{customer_json.billing.postal_code}}<br>
+						{{customer_json.billing.city}}<br>
+						{{customer_json.billing.country_code}}<br>
+						</p>
 					{% elif card_json %}
-						<p>{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}</p>
-						<p>{{customer_json.email_address}}</p>
-						<p>{{customer_json.billing.address_1}}</p>
-						<p>{{customer_json.billing.postal_code}}</p>
-						<p>{{customer_json.billing.city}}</p>
-						<p>{{customer_json.billing.country_code}}</p>
+						<p>
+						{{customer_json.billing.first_name}} {{customer_json.billing.last_name}}<br>
+						{{customer_json.email_address}}<br>
+						{{customer_json.billing.address_1}}<br>
+						{{customer_json.billing.postal_code}}<br>
+						{{customer_json.billing.city}}<br>
+						{{customer_json.billing.country_code}}<br>
+						</p>
 					{% endif %}
 					</div>
 				</div>
@@ -58,28 +54,34 @@
 					<h5 class="title is-5">
 						Authentication details
 					</h5>
-						<p>3DS Version:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.threeds_version}}</p>
-						<p>Enrolled:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.enrolled}}</p>
-						<p>Pares status:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.pares_status}}</p>
-						<p>ECI:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.eci_flag}}</p>
-						<p>CAVV</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.cavv}}</p>
-						<p>Error number:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.error_no}}</p>
-						<p>Error description</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.error_desc}}</p>
-						<p>Reason code:</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.reason_code}}</p>
-						<p>Reason description</p>
-						<p class="has-text-weight-semibold">{{authentication_json.authentication.reason_desc}}</p>
+					<p>3DS Version<br>
+					<b>{{authentication_json.authentication.threeds_version}}</b>
+					</p>
+					<p>Enrolled<br>
+					<b>{{authentication_json.authentication.enrolled}}</b>
+					</p>
+					<p>Pares status<br>
+					<b>{{authentication_json.authentication.pares_status}}</b>
+					</p>
+					<p>ECI<br>
+					<b>{{authentication_json.authentication.eci_flag}}</b>
+					</p>
+					<p>CAVV<br>
+					<b>{{authentication_json.authentication.cavv}}</b>
+					</p>
+					<p>Error number<br>
+					<b>{{authentication_json.authentication.error_no}}</b>
+					</p>
+					<p>Error description<br>
+					<b>{{authentication_json.authentication.error_desc}}</b>
+					</p>
+					<p>Reason code<br>
+					<b>{{authentication_json.authentication.reason_code}}</b>
+					</p>
+					<p>Reason description<br>
+					<b>{{authentication_json.authentication.reason_desc}}</b>
+					</p>
 					{% endif %}
 					</div>
 				</div>
-			</div>
-		</div>
-</section>
-{% endblock %}
+						{% endblock %}
