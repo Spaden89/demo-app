@@ -1,78 +1,63 @@
 {% extends "base.html" %}
 {% block title %} Demo {% endblock %}
-{% block content %}
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column is-two-thirds">
-				<h1 class="title is-1">
-					Demonstration
-				</h1>
-				<p class="subtitle">
-					This page is intended to test the <a
-						href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
-				</p>
-				<p class="subtitle">
-					Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This
-					page tokenizes a card and creates a transaction. After the transaction has been created you will be
-					forwarded to a 'Thank you' page including a link to the transaction in the portal.
-				</p>
-				<p class="subtitle">
-					After the transaction has been created you will be forwarded to a 'Thank you' page where you can
-					find a link to the transaction in the portal.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column box is-two-thirds section">
-				<div class="column">
-					<h4 class="title is-4">
-						Shipping & Billing Details
-					</h4>
-					<div class="content">
-						<p>John Gilmore</p>
-						<p>john.gilmore@email.com</p>
-						<p>46 Shore Street</p>
-						<p>Stockton Heath</p>
-						<p>WA4 5GX</p>
-						<p>United Kingdom</p>
-					</div>
-				</div>
-				<div class="column">
-					<h4 class="title is-4">
-						Payment Details
-					</h4>
-					<div class="content">
-						<p class="is-italic">Use a new card or use a card from a previous purchase</p>
-						<h5 class="title is-5">Existing card</p>
-							<form id="reuse_card" action="/transaction" method="POST">
-								<input name="card" class="button" type="submit" value="Visa **** 0002" placeholder="{{card}}" disabled=disabled>
-							</form>
-						<h5 class="title is-5">New card</p>
-					</div>
-					<div class="control">
-						<form id="my_payment_form" method="POST" action="/demo/default">
-							<input type="hidden" name="my_order_id" value="12345" />
-							<div class="field">
-								<label class="checkbox">
-									<input type="checkbox" name="capture_now">
-									Capture transaction
-								</label>
-							</div>
-							<script>
-								jsclient.injectForm(document.getElementById('my_payment_form'), {
-									"organisation_id": "{{organisation}}",
-									"no_style": true,
-								});
-							</script>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-</section>
+{% block intro_text_title %}Demonstration{% endblock %}
+
+
+{% block intro_content%}
+This page is intended to test the <a href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a>
+functionality.
+</p>
+<p class="subtitle">
+Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This
+page tokenizes a card and creates a transaction. After the transaction has been created you will be
+forwarded to a 'Thank you' page including a link to the transaction in the portal.
+</p>
+<p class="subtitle">
+After the transaction has been created you will be forwarded to a 'Thank you' page where you can
+find a link to the transaction in the portal.
 {% endblock %}
+
+{% block box_title %}
+Shipping & Billing
+{% endblock %}
+
+{% block box_content %}
+<div class="content">
+	<p>John Gilmore</p>
+	<p>john.gilmore@email.com</p>
+	<p>46 Shore Street</p>
+	<p>Stockton Heath</p>
+	<p>WA4 5GX</p>
+	<p>United Kingdom</p>
+</div>
+</div>
+<div class="column">
+	<h4 class="title is-4">
+		Payment Details
+	</h4>
+	<div class="content">
+		<p class="is-italic">Use a new card or use a card from a previous purchase</p>
+		<h5 class="title is-5">Existing card
+</p>
+<form id="reuse_card" action="/transaction" method="POST">
+<input name="card" class="button" type="submit" value="Visa **** 0002" placeholder="{{card}}" disabled=disabled>
+</form>
+<h5 class="title is-5">New card</p>
+</div>
+<div class="control">
+	<form id="my_payment_form" method="POST" action="/demo/default">
+		<input type="hidden" name="my_order_id" value="12345" />
+		<div class="field">
+			<label class="checkbox">
+				<input type="checkbox" name="capture_now">
+				Capture transaction
+			</label>
+		</div>
+		<script>
+			jsclient.injectForm(document.getElementById('my_payment_form'), {
+				"organisation_id": "{{organisation}}",
+				"no_style": true,
+			});
+		</script>
+	</form>
+	{% endblock %}
