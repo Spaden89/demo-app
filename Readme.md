@@ -32,10 +32,10 @@ Done
 - ~Include Checkout functionality~
 - ~Card capture configuration~
 - ~Add QR code~
+- ~Fix tokenization only code + link to sandbox~
+- ~Refactor templates~
 
 To do
-- Fix tokenization only code + link to sandbox
-- Refactor templates
 - Add Bergstroms styling
 - Add card to customer
 - Add config for auto capture
