@@ -5,6 +5,7 @@ import json
 # from json2html import *
 import dimebox
 from flask_qrcode import QRcode
+from random import randint
 
 app = Flask(__name__, instance_relative_config=True)
 # Set secret key for sessions
@@ -45,6 +46,10 @@ def websiteVisit():
     print(f"Client User-Agent is: {client_user_agent}")
     return client_ip_address, client_user_agent
 
+def randomReference():
+    merchant_reference = "VF-" + str(randint(1,999999))
+    return merchant_reference
+
 @app.route('/transaction', methods=['GET','POST'])
 def transaction():
     if request.method == 'POST':
@@ -75,6 +80,7 @@ def transaction():
 @app.route('/demo/default', methods=['GET','POST'])
 def demo_default():
     (client_ip_address, client_user_agent) = websiteVisit()
+    merchant_reference = randomReference()
     if request.method == 'POST':
         # store the card token in the card variable
         print(request.form)
@@ -83,7 +89,7 @@ def demo_default():
             capture_now = True
         else:
             capture_now = False
-        trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent)
+        trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent, merchant_reference)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
     return render_template('demo.html', card = os.environ.get("CARD"), organisation = os.environ.get("ORGANISATION"), host = os.environ.get("VERIFONE_HOST"))
@@ -141,7 +147,7 @@ def checkout_endpoint():
     if request.method == 'POST':
         # generate a checkout page
         amount = 1234 
-        merchant_reference = "VF-001" 
+        merchant_reference = randomReference()
         return_url = 'https://' + request.host + url_for('thank_you')
         # process transaction
         if request.form.get('process_transaction'):
