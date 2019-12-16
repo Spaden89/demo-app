@@ -1,24 +1,13 @@
 {% extends "base.html" %}
 {% block title %} QR Demo {% endblock %}
-{% block intro_text_title %}Demonstration{% endblock %}
+{% block intro_text_title %}QR Demo {% endblock %}
 
 {% block intro_content %}
-	This page is intended to test the <a
-		href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
-</p>
-<p class="subtitle">
-	Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This
-	page tokenizes a card and creates a transaction. After the transaction has been created you will be
-	forwarded to a 'Thank you' page including a link to the transaction in the portal.
-</p>
-<p class="subtitle">
-	After the transaction has been created you will be forwarded to a 'Thank you' page where you can
-	find a link to the transaction in the portal.
+	Scan the code with your mobile to try Checkout out on a small screen.
 {% endblock %}
-{% block box_title %}QR Code{% endblock %}
 
 {% block box_content%}
-<div class="content">
+<div class="columns content is-four-fifths is-centered is-square">
 	<img src="{{ qrcode(checkout_url) }}">
 </div>
 {% endblock %}
