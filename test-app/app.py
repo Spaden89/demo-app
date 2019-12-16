@@ -86,7 +86,7 @@ def demo_default():
         trx_json = dimebox.createTransaction(card, capture_now, customer, client_ip_address, client_user_agent)
         trx_id = trx_json['_id']
         return redirect(url_for('thank_you',transaction_id=[trx_id]))
-    return render_template('demo.html', card = os.environ.get("CARD"))
+    return render_template('demo.html', card = os.environ.get("CARD"), organisation = os.environ.get("ORGANISATION"))
 
 @app.route('/demo/newcustomer', methods=['GET', 'POST'])
 def newcustomer():
@@ -107,7 +107,7 @@ def newcustomer():
         customer_json = dimebox.createCustomer(email, first, last, address, city, postal_code, country)
         trx_json = dimebox.createTransaction(card, capture_now, customer_json['_id'], client_ip_address, client_user_agent)
         return redirect(url_for('thank_you',transaction_id=[trx_json['_id']]))
-    return render_template('newcustomer.html')
+    return render_template('newcustomer.html', organisation = os.environ.get("ORGANISATION"))
 
 @app.route('/thankyou', methods=['GET'])
 def thank_you():
