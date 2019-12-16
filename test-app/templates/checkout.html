@@ -1,83 +1,66 @@
 {% extends "base.html" %}
 {% block title %} Checkout {% endblock %}
-{% block content %}
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column is-two-thirds">
-				<h1 class="title is-1">
-					Demonstration
-				</h1>
-				<p class="subtitle">
-					This page is intended to test the <a
-						href="https://verifone.demo.dimebox.com/docs/checkout_overview">Checkout</a> functionality.
-				</p>
-				<p class="subtitle">
-					Checkout is the hosted payment page (HPP) feature of Verifone.
-				</p>
-				<p class="subtitle">
-					After the Checkout has been created you will be forwarded to it and afterwards to a 'Thank you' page where you can
-					find a link to the transaction in the portal.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column box is-two-thirds section">
-				<div class="column">
-					<h4 class="title is-4">
-						Shipping & Billing Details
-					</h4>
-					<div class="content">
-						<p>John Gilmore</p>
-						<p>john.gilmore@email.com</p>
-						<p>46 Shore Street</p>
-						<p>Stockton Heath</p>
-						<p>WA4 5GX</p>
-						<p>United Kingdom</p>
-					</div>
+
+{% block intro_text_title %}Demonstration{% endblock %}
+
+{% block intro_content %}
+This page is intended to test the <a href="https://verifone.demo.dimebox.com/docs/checkout_overview">Checkout</a>
+functionality.
+</p>
+<p class="subtitle">
+	Checkout is the hosted payment page (HPP) feature of Verifone.
+</p>
+<p class="subtitle">
+After the Checkout has been created you will be forwarded to it and afterwards to a 'Thank you' page where you can
+find a link to the transaction in the portal.
+{% endblock%}
+
+{% block box_title %}Shipping & Billing Details{% endblock %}
+
+{% block box_content %}
+<div class="content">
+	<p>
+	John Gilmore<br>
+	john.gilmore@email.com<br>
+	46 Shore Street<br>
+	Stockton Heath<br>
+	WA4 5GX<br>
+	United Kingdom
+	</p>
+</div>
+</div>
+<div class="column">
+	<h4 class="title is-4">
+		Checkout Details
+	</h4>
+	<div class="content">
+		<p class="is-italic">Configure your Checkout here</p>
+		<div class="control">
+			<form id="create_checkout_form" method="POST" action="/checkout">
+				<div class="field">
+					<label class="checkbox">
+						<input type="checkbox" name="threeds_enabled">
+						3DS
+					</label>
 				</div>
-				<div class="column">
-					<h4 class="title is-4">
-						Checkout Details
-					</h4>
-					<div class="content">
-						<p class="is-italic">Configure your Checkout here</p>
-					<div class="control">
-						<form id="create_checkout_form" method="POST" action="/checkout" >
-							<div class="field">
-								<label class="checkbox">
-									<input type="checkbox" name="threeds_enabled">
-									3DS
-								</label>
-							</div>
-							<div class="field">
-								<label class="checkbox">
-									<input type="checkbox" name="process_transaction">
-									Tokenization only
-								</label>
-							</div>
-							<div class="field">
-								<label class="checkbox">
-									<input type="checkbox" name="capture_now">
-									Capture transaction
-								</label>
-							</div>
-							<div class="field">
-								<label class="checkbox">
-									<input type="checkbox" name="qr_code">
-									Use QR
-								</label>
-							</div>
-							<input class="button is-info" type="submit" id="_submit_customer" value="Generate Checkout">
-							</form>
-						</form>
-					</div>
+				<div class="field">
+					<label class="checkbox">
+						<input type="checkbox" name="process_transaction">
+						Tokenization only
+					</label>
 				</div>
-			</div>
-		</div>
-</section>
+				<div class="field">
+					<label class="checkbox">
+						<input type="checkbox" name="capture_now">
+						Capture transaction
+					</label>
+				</div>
+				<div class="field">
+					<label class="checkbox">
+						<input type="checkbox" name="qr_code">
+						Use QR
+					</label>
+				</div>
+				<input class="button is-info" type="submit" id="_submit_customer" value="Generate Checkout">
+			</form>
 {% endblock %}

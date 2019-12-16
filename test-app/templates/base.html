@@ -1,36 +1,69 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title%}{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
-    <link rel= "stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="{{host}}/static/jsclient/script.js"></script>
     <script src="{{ url_for('static', filename='bulma-form.js')}}"></script>
 </head>
+
 <body>
-<div class="columns">
-    <div class="column is-2">
-        <div class="section">
-            <aside class="menu">
-                <p class="menu-label">
-                    Menu
-                </p>
-                <ul class="menu-list">
-                    <li><a href="/demo/default" >Home</a></li>
-                    <li><a href="/demo/default" >Demonstration</a></li>
-                    <li><a href="/demo/newcustomer" >New customer</a></li>
-                    <li><a href="/demo/checkout" >Checkout</a></li>
-                </ul>
-            </aside>
+    <div class="columns">
+        <div class="column is-2">
+            <div class="section">
+                <aside class="menu">
+                    <p class="menu-label">
+                        Menu
+                    </p>
+                    <ul class="menu-list">
+                        <li><a href="/demo/default">Home</a></li>
+                        <li><a href="/demo/default">Demonstration</a></li>
+                        <li><a href="/demo/newcustomer">New customer</a></li>
+                        <li><a href="/demo/checkout">Checkout</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+        <div class="column is-10">
+            <section class="section">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-two-thirds">
+                            <h1 class="title is-1">
+                                {% block intro_text_title %}
+                                {% endblock %}
+                            </h1>
+                            <p class="subtitle">
+                                {% block intro_content %}
+                                {% endblock %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div
+                            class="column box is-four-sixth-table is-three-fifths-desktop is-three-fifths-widescreen is-two-fifths-fullhd section">
+                            <div class="column">
+                                <h2 class="title is-4">
+                                    {% block box_title %}
+                                    {% endblock %}
+                                </h2>
+                                {% block box_content %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+            </section>
         </div>
     </div>
-    <div class="column is-10">
-        {% block content %}
-        {% endblock %}
-    </div>
-</div>
 </body>
+
 </html>

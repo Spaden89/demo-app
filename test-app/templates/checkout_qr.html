@@ -1,43 +1,15 @@
 {% extends "base.html" %}
 {% block title %} QR Demo {% endblock %}
-{% block content %}
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column is-two-thirds">
-				<h1 class="title is-1">
-					Demonstration
-				</h1>
-				<p class="subtitle">
-					This page is intended to test the <a
-						href="https://verifone.demo.dimebox.com/docs/inject_tokenization">Inject</a> functionality.
-				</p>
-				<p class="subtitle">
-					Inject is a PCI compliant JS snippet that can be used for tokenizing card details on the web. This
-					page tokenizes a card and creates a transaction. After the transaction has been created you will be
-					forwarded to a 'Thank you' page including a link to the transaction in the portal.
-				</p>
-				<p class="subtitle">
-					After the transaction has been created you will be forwarded to a 'Thank you' page where you can
-					find a link to the transaction in the portal.
-				</p>
-			</div>
-		</div>
-	</div>
-</section>
-<section class="section">
-	<div class="container">
-		<div class="columns is-centered">
-			<div class="column box is-two-thirds section">
-				<div class="column">
-					<h4 class="title is-4">
-						QR Code
-					</h4>
-					<div class="content">
-						<img src="{{ qrcode(checkout_url) }}">
-					</div>
-				</div>
-			</div>
-		</div>
-</section>
+{% block intro_text_title %}QR Demo {% endblock %}
+
+{% block intro_content %}
+	Scan the code with your mobile to try Checkout out on a small screen.
+{% endblock %}
+
+{% block box_content%}
+<div class="columns content is-four-fifths is-centered is-square">
+	<a href="{{checkout_url}}">
+	<img src="{{ qrcode(checkout_url) }}">
+	</a>
+</div>
 {% endblock %}
