@@ -25,7 +25,8 @@ def createTransaction(
     capture_now,
     customer, 
     client_ip_address, 
-    client_user_agent):
+    client_user_agent,
+    merchant_reference):
     # Create transaction json body
     transaction_body = {
         "account": account,
@@ -35,7 +36,7 @@ def createTransaction(
         "customer_ip": client_ip_address,
         "customer": customer,
         "dynamic_descriptor": "Demonstration Test",
-        "merchant_reference": "Test Demo",
+        "merchant_reference": merchant_reference,
         "user_agent": client_user_agent,
     }
     # POST transaction request and capture the response as a json object
