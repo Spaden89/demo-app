@@ -36,10 +36,11 @@ Done
 - ~Refactor templates~
 
 To do
+- Menu toggle + check on different screensizes (https://www.w3schools.com/howto/howto_js_collapse_sidebar.asp)
+- Checkout template styling + add test cards
+- Display transactional data before and after payment
+- Darkmode toggle in menu
 - Add Bergstroms styling
-- Add card to customer
-- Add config for auto capture
-- Create UI components for displaying transaction, customer and card details
+- COF
 - Error page
-- Create a customer class
-- request test account
+- Request sandbox account
